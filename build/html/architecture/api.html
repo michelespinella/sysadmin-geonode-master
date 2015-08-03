@@ -1,0 +1,176 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
+  "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+
+
+<html xmlns="http://www.w3.org/1999/xhtml">
+  <head>
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+    
+    <title>GeoNode ah-hoc API &mdash; DRDSI CKAN doc</title>
+    
+    <link rel="stylesheet" href="../_static/geosolutions.css" type="text/css" />
+    <link rel="stylesheet" href="../_static/pygments.css" type="text/css" />
+    
+    <script type="text/javascript">
+      var DOCUMENTATION_OPTIONS = {
+        URL_ROOT:    '../',
+        VERSION:     '20140422',
+        COLLAPSE_INDEX: false,
+        FILE_SUFFIX: '.html',
+        HAS_SOURCE:  true
+      };
+    </script>
+    <script type="text/javascript" src="../_static/jquery.js"></script>
+    <script type="text/javascript" src="../_static/underscore.js"></script>
+    <script type="text/javascript" src="../_static/doctools.js"></script>
+    <link rel="shortcut icon" href="../_static/favicon.ico"/>
+    <link rel="top" title="DRDSI CKAN doc" href="../index.html" />
+    <link rel="up" title="Reference documentation" href="index.html" />
+    <link rel="next" title="Localization" href="localization.html" />
+    <link rel="prev" title="Security and Permissions" href="security.html" />
+    
+
+  </head>
+  <body>
+    <div class="header">
+        <div class="wrap">
+			
+            <div class="logo">
+			<a href="http://geo-solutions.it/"><img src="../_static/img/geosolutions.png" alt="GeoSolutions" /></a>
+			<div class="social-container"> 
+				<ul id="social">
+					<li><a href="https://plus.google.com/u/0/100131944378031878024/posts" id="gplus">Google+</a></li>
+					<li><a href="http://twitter.com/geosolutions_it/" id="twitter">Twitter</a></li>
+				</ul>
+			</div>
+			</div>
+					
+            <h2 class="docstitle"><a href="../index.html">DRDSI CKAN doc</a></h2>
+			
+        </div>
+    </div>
+
+
+      <div class="sphinxsidebar">
+        <div class="sphinxsidebarwrapper">
+  <h3><a href="../index.html">Table Of Contents</a></h3>
+  <ul>
+<li><a class="reference internal" href="#">GeoNode ah-hoc API</a><ul>
+<li><a class="reference internal" href="#api-endpoints">API endpoints</a></li>
+<li><a class="reference internal" href="#api-filtering">API filtering</a></li>
+<li><a class="reference internal" href="#api-limit-and-pagination">API limit and pagination</a></li>
+<li><a class="reference internal" href="#api-settings">API settings</a></li>
+<li><a class="reference internal" href="#searching-with-haystack">Searching with Haystack</a></li>
+</ul>
+</li>
+</ul>
+
+  <h4>Previous topic</h4>
+  <p class="topless"><a href="security.html"
+                        title="previous chapter">Security and Permissions</a></p>
+  <h4>Next topic</h4>
+  <p class="topless"><a href="localization.html"
+                        title="next chapter">Localization</a></p>
+  <h3>This Page</h3>
+  <ul class="this-page-menu">
+    <li><a href="../_sources/architecture/api.txt"
+           rel="nofollow">Show Source</a></li>
+  </ul>
+        </div>
+      </div>
+
+
+    <div class="document">
+      <div class="documentwrapper">
+        <div class="bodywrapper">
+          <div class="body">
+            
+  <div class="section" id="geonode-ah-hoc-api">
+<span id="api"></span><h1>GeoNode ah-hoc API<a class="headerlink" href="#geonode-ah-hoc-api" title="Permalink to this headline">¶</a></h1>
+<p>GeoNode provides JSON API which currently support the GET method. The API are also used as main serch engine.</p>
+<div class="section" id="api-endpoints">
+<h2>API endpoints<a class="headerlink" href="#api-endpoints" title="Permalink to this headline">¶</a></h2>
+<p>GeoNode provides some enpoints and filtering.</p>
+<ul class="simple">
+<li><em>&#8220;/api/base&#8221;</em> query on the ResourceBase table and returns combined results of Maps, Layers Documents and Services</li>
+<li><em>&#8220;/api/layers&#8221;</em> query the Layer table</li>
+<li><em>&#8220;/api/maps&#8221;</em> query the Map table</li>
+<li><em>&#8220;/api/documents&#8221;</em> query the Document table</li>
+<li><em>&#8220;/api/groups&#8221;</em> query the GroupProfile table (which contains the Groups)</li>
+<li><em>&#8220;/api/profiles&#8221;</em> query the Profile table (which is the geonode authentication table)</li>
+<li><em>&#8220;/api/categories&#8221;</em> query the Category table</li>
+<li><em>&#8220;/api/keywords&#8221;</em> query the Tag table</li>
+<li><em>&#8220;/api/featured&#8221;</em> query the ResouceBase table by limiting the items to the ones flagged as &#8220;featured&#8221; (listed in home page)</li>
+</ul>
+</div>
+<div class="section" id="api-filtering">
+<h2>API filtering<a class="headerlink" href="#api-filtering" title="Permalink to this headline">¶</a></h2>
+<p>The API allow filtering by adding django style model filters to the url.</p>
+<p>As an example, filtering by title corresponds to a url like <em>&#8220;/api/layers?title__contains=grid&#8221;</em>
+It&#8217;s also possible to filter by related tables like <em>&#8220;/api/layers?keywords__slug__exact=the-keyword&#8221;</em></p>
+<p>There are many possible filter, refer to the <a class="reference external" href="https://docs.djangoproject.com/en/1.6/ref/models/querysets/">django</a> filters guide.</p>
+</div>
+<div class="section" id="api-limit-and-pagination">
+<h2>API limit and pagination<a class="headerlink" href="#api-limit-and-pagination" title="Permalink to this headline">¶</a></h2>
+<p>It&#8217;s possible to limite the number of the results returned by the API by adding a limit parameter like <em>&#8220;/api/layers?limit=10&#8221;</em>
+It&#8217;s also possible to specify an offset so that the firts results will not be returned (together with the limit this makes a pagination logic), <em>&#8220;/api/layers?offset=5&#8221;</em></p>
+<p>So a query like <em>&#8220;/api/layers?offset=5&amp;limit=10&#8221;</em> will return 10 results starting from the 6th found in the database.</p>
+</div>
+<div class="section" id="api-settings">
+<h2>API settings<a class="headerlink" href="#api-settings" title="Permalink to this headline">¶</a></h2>
+<p>You can configure how many results will be lists per page on the client (in the list pages and search page) by changing this line <a class="reference external" href="https://github.com/GeoNode/geonode/blob/master/geonode/settings.py#L643">https://github.com/GeoNode/geonode/blob/master/geonode/settings.py#L643</a></p>
+<p>And you can set the amount of data returned by default from the API (if the limit parameter is not set), the default is 0 which means no limit <a class="reference external" href="https://github.com/GeoNode/geonode/blob/master/geonode/settings.py#L646">https://github.com/GeoNode/geonode/blob/master/geonode/settings.py#L646</a></p>
+</div>
+<div class="section" id="searching-with-haystack">
+<h2>Searching with Haystack<a class="headerlink" href="#searching-with-haystack" title="Permalink to this headline">¶</a></h2>
+<p>GeoNode is ready to use a complete full text search engine.
+Note that haystack will be used only on the base, layers, maps and documents API.</p>
+<p>Once activated the full text API is reachable by appending &#8220;search&#8221; to the url, for example <em>&#8220;/api/base/search?limit=0&amp;offset=0&#8221;</em></p>
+<p>Although the backend type is not mandatory, we suggest (for simplicity) to use <a class="reference external" href="http://www.elasticsearch.org/">Elastichsearch</a>:</p>
+<p>To activate the search backend make sure that you have a running instance of Elastichsearch, then uncomment the following line in the geonode settings:</p>
+<p><a class="reference external" href="https://github.com/GeoNode/geonode/blob/master/geonode/settings.py#L219">https://github.com/GeoNode/geonode/blob/master/geonode/settings.py#L219</a></p>
+<p>And activate the search through the settings at the line:</p>
+<p><a class="reference external" href="https://github.com/GeoNode/geonode/blob/master/geonode/settings.py#L607">https://github.com/GeoNode/geonode/blob/master/geonode/settings.py#L607</a></p>
+<p>Also uncomment and correct the address of elastichsearch if needed:
+<a class="reference external" href="https://github.com/GeoNode/geonode/blob/master/geonode/settings.py#L612">https://github.com/GeoNode/geonode/blob/master/geonode/settings.py#L612</a>
+<a class="reference external" href="https://github.com/GeoNode/geonode/blob/master/geonode/settings.py#L619">https://github.com/GeoNode/geonode/blob/master/geonode/settings.py#L619</a></p>
+<p>You can do some more customizations like:</p>
+<ul class="simple">
+<li>should the search skip the permissions filtering? <a class="reference external" href="https://github.com/GeoNode/geonode/blob/master/geonode/settings.py#L609">https://github.com/GeoNode/geonode/blob/master/geonode/settings.py#L609</a></li>
+<li>should the search update the facets counts on every search you make or keep the standard behavior? <a class="reference external" href="https://github.com/GeoNode/geonode/blob/master/geonode/settings.py#L611">https://github.com/GeoNode/geonode/blob/master/geonode/settings.py#L611</a></li>
+<li>How many results should the backend return by default? <a class="reference external" href="https://github.com/GeoNode/geonode/blob/master/geonode/settings.py#L620">https://github.com/GeoNode/geonode/blob/master/geonode/settings.py#L620</a></li>
+</ul>
+</div>
+</div>
+
+
+          </div>
+        </div>
+      </div>
+      <div class="clearer"></div>
+    </div>
+    <div class="related">
+      <h3>Navigation</h3>
+      <ul>
+            <li class="right" style="margin-right: 10px">
+              <a href="../genindex.html" title="General Index"
+                 accesskey="I">index</a></li>
+            <li class="right" >
+              <a href="localization.html" title="Localization"
+                 accesskey="N">next</a> |</li>
+            <li class="right" >
+              <a href="security.html" title="Security and Permissions"
+                 accesskey="P">previous</a> |</li>
+        <li><a href="../index.html">doc</a> &raquo;</li>
+          <li><a href="index.html" accesskey="U">Reference documentation</a> &raquo;</li>
+        <li><a href="#">GeoNode ah-hoc API</a></li>
+      </ul>
+    </div>
+
+    <div class="footer">
+        &copy; Copyright 2014 GeoSolutions.
+      Last updated on Aug 03, 2015.
+      Created using <a href="http://sphinx-doc.org/">Sphinx</a> 1.2.2.
+    </div>
+  </body>
+</html>

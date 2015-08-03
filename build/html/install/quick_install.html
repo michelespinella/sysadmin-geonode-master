@@ -1,0 +1,316 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
+  "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+
+
+<html xmlns="http://www.w3.org/1999/xhtml">
+  <head>
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+    
+    <title>Quick Installation Guide &mdash; DRDSI CKAN doc</title>
+    
+    <link rel="stylesheet" href="../_static/geosolutions.css" type="text/css" />
+    <link rel="stylesheet" href="../_static/pygments.css" type="text/css" />
+    
+    <script type="text/javascript">
+      var DOCUMENTATION_OPTIONS = {
+        URL_ROOT:    '../',
+        VERSION:     '20140422',
+        COLLAPSE_INDEX: false,
+        FILE_SUFFIX: '.html',
+        HAS_SOURCE:  true
+      };
+    </script>
+    <script type="text/javascript" src="../_static/jquery.js"></script>
+    <script type="text/javascript" src="../_static/underscore.js"></script>
+    <script type="text/javascript" src="../_static/doctools.js"></script>
+    <link rel="shortcut icon" href="../_static/favicon.ico"/>
+    <link rel="top" title="DRDSI CKAN doc" href="../index.html" />
+    
+
+  </head>
+  <body>
+    <div class="header">
+        <div class="wrap">
+			
+            <div class="logo">
+			<a href="http://geo-solutions.it/"><img src="../_static/img/geosolutions.png" alt="GeoSolutions" /></a>
+			<div class="social-container"> 
+				<ul id="social">
+					<li><a href="https://plus.google.com/u/0/100131944378031878024/posts" id="gplus">Google+</a></li>
+					<li><a href="http://twitter.com/geosolutions_it/" id="twitter">Twitter</a></li>
+				</ul>
+			</div>
+			</div>
+					
+            <h2 class="docstitle"><a href="../index.html">DRDSI CKAN doc</a></h2>
+			
+        </div>
+    </div>
+
+
+      <div class="sphinxsidebar">
+        <div class="sphinxsidebarwrapper">
+  <h3><a href="../index.html">Table Of Contents</a></h3>
+  <ul>
+<li><a class="reference internal" href="#">Quick Installation Guide</a><ul>
+<li><a class="reference internal" href="#recommended-minimum-system-requirements">Recommended Minimum System Requirements</a></li>
+<li><a class="reference internal" href="#linux">Linux</a><ul>
+<li><a class="reference internal" href="#ubuntu">Ubuntu</a></li>
+</ul>
+</li>
+<li><a class="reference internal" href="#windows-osx-and-others">Windows, OSX and others</a><ul>
+<li><a class="reference internal" href="#windows">Windows</a></li>
+<li><a class="reference internal" href="#osx">OSX</a></li>
+<li><a class="reference internal" href="#centos-rhel-and-other-nix-distros">CentOS/RHEL and other *nix distros</a></li>
+</ul>
+</li>
+</ul>
+</li>
+</ul>
+
+  <h3>This Page</h3>
+  <ul class="this-page-menu">
+    <li><a href="../_sources/install/quick_install.txt"
+           rel="nofollow">Show Source</a></li>
+  </ul>
+        </div>
+      </div>
+
+
+    <div class="document">
+      <div class="documentwrapper">
+        <div class="bodywrapper">
+          <div class="body">
+            
+  <div class="section" id="quick-installation-guide">
+<span id="quick-installation"></span><h1>Quick Installation Guide<a class="headerlink" href="#quick-installation-guide" title="Permalink to this headline">¶</a></h1>
+<p>The following is a quick guide to get GeoNode up and running in most common operating systems.
+This is meant to be run on a fresh machine with no previously installated packages or GeoNode versions.</p>
+<div class="section" id="recommended-minimum-system-requirements">
+<h2>Recommended Minimum System Requirements<a class="headerlink" href="#recommended-minimum-system-requirements" title="Permalink to this headline">¶</a></h2>
+<p>For deployment of GeoNode on a single server, the following are the <em>bare minimum</em> system requirements:</p>
+<ul class="simple">
+<li>6GB of RAM, including swap space.</li>
+<li>2.2GHz processor. (Additional processing power may be required for multiple concurrent styling renderings)</li>
+<li>1 GB software disk usage.</li>
+<li>Additional disk space for any data hosted with GeoNode and tiles cached with GeoWebCache.
+For spatial data, cached tiles, and &#8220;scratch space&#8221; useful for administration, a decent baseline size for GeoNode deployments is 100GB.</li>
+<li>64-bit hardware recommended.</li>
+</ul>
+</div>
+<div class="section" id="linux">
+<h2>Linux<a class="headerlink" href="#linux" title="Permalink to this headline">¶</a></h2>
+<div class="section" id="ubuntu">
+<h3>Ubuntu<a class="headerlink" href="#ubuntu" title="Permalink to this headline">¶</a></h3>
+<p>The easiest way to get the .deb is to install it using APT, the standard installation management tool for Ubuntu and other Debian-based systems.</p>
+<ol class="arabic" start="0">
+<li><p class="first">First, make sure you have the <tt class="docutils literal"><span class="pre">add-apt-repository</span></tt> binary available.</p>
+<ol class="loweralpha">
+<li><p class="first">On Ubuntu 12.04 and older:</p>
+<div class="highlight-python"><div class="highlight"><pre>sudo apt-get install python-software-properties
+</pre></div>
+</div>
+</li>
+<li><p class="first">On Ubuntu 12.10 and later:</p>
+<div class="highlight-python"><div class="highlight"><pre>sudo apt-get install software-properties-common
+</pre></div>
+</div>
+</li>
+</ol>
+</li>
+<li><p class="first">Set up the GeoNode PPA repository (you only need to do this once; the repository will still be available for upgrades later):</p>
+<div class="highlight-python"><div class="highlight"><pre>sudo add-apt-repository ppa:geonode/release
+</pre></div>
+</div>
+</li>
+<li><p class="first">Install the package.
+This step will also automatically download all necessary dependencies:</p>
+<div class="highlight-python"><div class="highlight"><pre>sudo apt-get update
+sudo apt-get install geonode
+</pre></div>
+</div>
+</li>
+<li><dl class="first docutils">
+<dt>Create a superuser and set the IP address</dt>
+<dd><ol class="first last loweralpha simple">
+<li>$ geonode createsuperuser</li>
+<li>$ sudo geonode-updateip 127.0.0.1</li>
+</ol>
+</dd>
+</dl>
+</li>
+<li><dl class="first docutils">
+<dt>Read the Admin Docs</dt>
+<dd><p class="first last"><a class="reference external" href="http://docs.geonode.org/en/master/#for-administrators">http://docs.geonode.org/en/master/#for-administrators</a></p>
+</dd>
+</dl>
+</li>
+</ol>
+</div>
+</div>
+<div class="section" id="windows-osx-and-others">
+<h2>Windows, OSX and others<a class="headerlink" href="#windows-osx-and-others" title="Permalink to this headline">¶</a></h2>
+<div class="section" id="windows">
+<h3>Windows<a class="headerlink" href="#windows" title="Permalink to this headline">¶</a></h3>
+<p>To install in Windows it is assumed you&#8217;re familiar with python development and virtualenv on Windows and that you&#8217;re familiar with the windows command prompt. You will need the follow prerequists installed:</p>
+<blockquote>
+<div><ul class="simple">
+<li>Java JDK</li>
+<li>Python 2.7.9
+* Earlier versions of python require you to installdistutils (easy_install) - <a class="reference external" href="http://www.lfd.uci.edu/~gohlke/pythonlibs/#setuptools">http://www.lfd.uci.edu/~gohlke/pythonlibs/#setuptools</a></li>
+<li>ant (bin directory must be on system PATH)</li>
+<li>maven2 (bin directory must be on system PATH)</li>
+<li>git</li>
+</ul>
+</div></blockquote>
+<p>Install and configure from the windows command prompt, if you don&#8217;t already have python virtualenv installed, then do it now:</p>
+<div class="highlight-python"><div class="highlight"><pre>easy_install virtualenv
+</pre></div>
+</div>
+<p>Create virtualenv and activate it:</p>
+<div class="highlight-python"><div class="highlight"><pre>cd &lt;Directory to install the virtualenv &amp; geonode into&gt;
+virtualenv &lt;name of virtualenv folder&gt;
+virtualenv &lt;name of virtualenv folder&gt;\scripts\activate
+</pre></div>
+</div>
+<p>Clone GeoNode:</p>
+<div class="highlight-python"><div class="highlight"><pre>git clone https://github.com/GeoNode/geonode.git
+
+cd geonode
+</pre></div>
+</div>
+<p>Install Python native dependencies, this command will look for and install binary distributions (pip install will attempt to build and fail):</p>
+<div class="highlight-python"><div class="highlight"><pre>pip install paver
+paver win_install_deps
+</pre></div>
+</div>
+<p>Install GeoNode in the local virtualenv:</p>
+<div class="highlight-python"><div class="highlight"><pre>pip install -e .
+</pre></div>
+</div>
+<p>You have two options to set up the geos and gdal libraries.  Either create an environment variable
+or add the variables to your local_settings.py file as below.</p>
+<blockquote>
+<div>GEOS_LIBRARY_PATH=&#8221;C:/path/to/geos_c.dll&#8221;
+GDAL_LIBRARY_PATH=&#8221;C:/path/to/gdal111.dll&#8221;</div></blockquote>
+<p>The geos and gdal libraries can be found in your &lt;virtualenv directory&gt;Libsite-packagesGDAL-1.11.0-py2.7-win32.eggosgeofolder.</p>
+<p>Setup GeoServer:</p>
+<div class="highlight-python"><div class="highlight"><pre>paver setup
+</pre></div>
+</div>
+<p>Start the servers.  You have the option to set the JAVA_HOME environment variable or use the &#8211;java_path.:</p>
+<div class="highlight-python"><div class="highlight"><pre>paver start --java_path=&quot;C:\path\to\java\java.exe&quot;
+</pre></div>
+</div>
+<p>or if you set your JAVA_HOME environment variables (e.g. JAVA_HOME=&#8221;C:Program FilesJavajdk1.7.0_75&#8221;)</p>
+<blockquote>
+<div>paver start</div></blockquote>
+<p>Once the package is installed, please consult <em class="xref std std-ref">configure_installation</em> to learn how to create an account for the admin user and tweak the settings to get more performance.</p>
+</div>
+<div class="section" id="osx">
+<h3>OSX<a class="headerlink" href="#osx" title="Permalink to this headline">¶</a></h3>
+<p>The recommended install method in these platforms is to use a virtualization solution, like <a class="reference external" href="http://virtualbox.org">Virtual Box</a>, install the latest <a class="reference external" href="http://www.ubuntu.com/download">Ubuntu Linux</a> and then proceed with the steps mentioned above. Some GeoNode developers prefer to use <a class="reference external" href="http://vagrantup.com">Vagrant</a> - a VirtualBox wrapper, the steps for this are detailed below. The Vagrant quickstart guide shows how to get a Linux VM configured in most operating systems. However, if you would like to develop natively on OSX please follow the following instructions.</p>
+<p>You may need brew install various dependencies:</p>
+<div class="highlight-python"><div class="highlight"><pre>mkdir -p ~/pyenv
+virtualenv ~/pyenv/geonode
+source ~/pyenv/geonode/bin/activate
+git clone https://github.com/GeoNode/geonode
+cd geonode
+pip install lxml
+pip install pyproj
+pip install nose
+pip install httplib2
+pip install shapely
+pip install pillow
+pip install paver
+</pre></div>
+</div>
+<p>Node and tools required for static development:</p>
+<div class="highlight-python"><div class="highlight"><pre>brew install node
+npm install -g bower
+npm install -g grunt-cli
+</pre></div>
+</div>
+<p>Install pip dependencies:</p>
+<div class="highlight-python"><div class="highlight"><pre>pip install -e .
+</pre></div>
+</div>
+<p>Paver handles dependencies for Geonode, first setup (this will download and update your python dependencies - ensure you&#8217;re in a virtualenv):</p>
+<div class="highlight-python"><div class="highlight"><pre>paver setup
+paver start
+</pre></div>
+</div>
+<p>Optional: To generate document thumbnails for PDFs and other ghostscripts file types, download ghostscript: <a class="reference external" href="https://www.macupdate.com/app/mac/9980/gpl-ghostscript">https://www.macupdate.com/app/mac/9980/gpl-ghostscript</a>:</p>
+<div class="highlight-python"><div class="highlight"><pre>sudo apt-get install imagemagick
+brew install imagemagick
+pip install Wand==0.3.5
+</pre></div>
+</div>
+<p>Once fully started, you should see a message indicating the address of your geonode.
+The default username and password are <tt class="docutils literal"><span class="pre">admin</span></tt> and <tt class="docutils literal"><span class="pre">admin</span></tt>:</p>
+<div class="highlight-python"><div class="highlight"><pre>Development GeoNode is running at http://localhost:8000/
+The GeoNode is an unstoppable machine
+Press CTRL-C to shut down
+</pre></div>
+</div>
+<p>Before starting GeoNode (paver start), you could test your installation by running tests:</p>
+<div class="highlight-python"><div class="highlight"><pre>paver test
+paver test_integration
+</pre></div>
+</div>
+<p>In case you want to build yourself the documentation, you need to install Sphinx and the run &#8216;make html&#8217; from within the docs directory:</p>
+<div class="highlight-python"><div class="highlight"><pre>pip install Sphinx
+cd docs
+make html
+</pre></div>
+</div>
+<p>You can eventually generate a pdf containing the whole documentation set. For this purpose, if using Ubuntu 12.4 you will need to install the texlive-full package:</p>
+<div class="highlight-python"><div class="highlight"><pre>sudo apt-get install texlive-full
+make latexpdf
+</pre></div>
+</div>
+<div class="admonition note">
+<p class="first admonition-title">Note</p>
+<p class="last">When running <tt class="docutils literal"><span class="pre">virtualenv</span> <span class="pre">venv</span></tt> the <tt class="docutils literal"><span class="pre">--system-site-packages</span></tt> option is
+not required.  If not enabled, the bootstrap script will sandbox your virtual
+environment from any packages that are installed in the system, useful if
+you have incompatible versions of libraries such as Django installed
+system-wide.  On the other hand, most of the times it is useful to use a version of
+the Python Imaging Library provided by your operating system
+vendor, or packaged other than on PyPI.  When in doubt, however, just leave
+this option out.</p>
+</div>
+<p><a class="reference external" href="http://docs.vagrantup.com/v2/getting-started/index.html">http://docs.vagrantup.com/v2/getting-started/index.html</a></p>
+</div>
+<div class="section" id="centos-rhel-and-other-nix-distros">
+<h3>CentOS/RHEL and other *nix distros<a class="headerlink" href="#centos-rhel-and-other-nix-distros" title="Permalink to this headline">¶</a></h3>
+<p>We recommend you to download the latest release and modify the included <tt class="docutils literal"><span class="pre">install.sh</span></tt> and <tt class="docutils literal"><span class="pre">support/config.sh</span></tt>. GeoNode has been installed in CentOS/RHEL using this mechanism.</p>
+<p>Once the package is installed, please consult the <em class="xref std std-ref">configure_installation</em> to learn how to create the admin user and tweak the settings to get more performance.</p>
+</div>
+</div>
+</div>
+
+
+          </div>
+        </div>
+      </div>
+      <div class="clearer"></div>
+    </div>
+    <div class="related">
+      <h3>Navigation</h3>
+      <ul>
+            <li class="right" style="margin-right: 10px">
+              <a href="../genindex.html" title="General Index"
+                 accesskey="I">index</a></li>
+        <li><a href="../index.html">doc</a> &raquo;</li>
+        <li><a href="#">Quick Installation Guide</a></li>
+      </ul>
+    </div>
+
+    <div class="footer">
+        &copy; Copyright 2014 GeoSolutions.
+      Last updated on Aug 03, 2015.
+      Created using <a href="http://sphinx-doc.org/">Sphinx</a> 1.2.2.
+    </div>
+  </body>
+</html>

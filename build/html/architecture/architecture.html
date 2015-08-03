@@ -1,0 +1,234 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
+  "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+
+
+<html xmlns="http://www.w3.org/1999/xhtml">
+  <head>
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+    
+    <title>Architecture &mdash; DRDSI CKAN doc</title>
+    
+    <link rel="stylesheet" href="../_static/geosolutions.css" type="text/css" />
+    <link rel="stylesheet" href="../_static/pygments.css" type="text/css" />
+    
+    <script type="text/javascript">
+      var DOCUMENTATION_OPTIONS = {
+        URL_ROOT:    '../',
+        VERSION:     '20140422',
+        COLLAPSE_INDEX: false,
+        FILE_SUFFIX: '.html',
+        HAS_SOURCE:  true
+      };
+    </script>
+    <script type="text/javascript" src="../_static/jquery.js"></script>
+    <script type="text/javascript" src="../_static/underscore.js"></script>
+    <script type="text/javascript" src="../_static/doctools.js"></script>
+    <link rel="shortcut icon" href="../_static/favicon.ico"/>
+    <link rel="top" title="DRDSI CKAN doc" href="../index.html" />
+    <link rel="up" title="Reference documentation" href="index.html" />
+    <link rel="next" title="Components" href="components.html" />
+    <link rel="prev" title="Reference documentation" href="index.html" />
+    
+
+  </head>
+  <body>
+    <div class="header">
+        <div class="wrap">
+			
+            <div class="logo">
+			<a href="http://geo-solutions.it/"><img src="../_static/img/geosolutions.png" alt="GeoSolutions" /></a>
+			<div class="social-container"> 
+				<ul id="social">
+					<li><a href="https://plus.google.com/u/0/100131944378031878024/posts" id="gplus">Google+</a></li>
+					<li><a href="http://twitter.com/geosolutions_it/" id="twitter">Twitter</a></li>
+				</ul>
+			</div>
+			</div>
+					
+            <h2 class="docstitle"><a href="../index.html">DRDSI CKAN doc</a></h2>
+			
+        </div>
+    </div>
+
+
+      <div class="sphinxsidebar">
+        <div class="sphinxsidebarwrapper">
+  <h3><a href="../index.html">Table Of Contents</a></h3>
+  <ul>
+<li><a class="reference internal" href="#">Architecture</a><ul>
+<li><a class="reference internal" href="#the-big-picture">The Big Picture</a></li>
+<li><a class="reference internal" href="#django-architecture">Django Architecture</a><ul>
+<li><a class="reference internal" href="#mvc-mvt">MVC/MVT</a></li>
+<li><a class="reference internal" href="#wsgi">WSGI</a></li>
+</ul>
+</li>
+<li><a class="reference internal" href="#geonode-and-geoserver">GeoNode and GeoServer</a></li>
+<li><a class="reference internal" href="#geonode-and-postgresql-postgis">GeoNode and PostgreSQL/PostGIS</a></li>
+<li><a class="reference internal" href="#geonode-and-pycsw">GeoNode and pycsw</a><ul>
+<li><a class="reference internal" href="#publishing">Publishing</a></li>
+<li><a class="reference internal" href="#discovery">Discovery</a></li>
+</ul>
+</li>
+<li><a class="reference internal" href="#javascript-in-geonode">Javascript in GeoNode</a></li>
+</ul>
+</li>
+</ul>
+
+  <h4>Previous topic</h4>
+  <p class="topless"><a href="index.html"
+                        title="previous chapter">Reference documentation</a></p>
+  <h4>Next topic</h4>
+  <p class="topless"><a href="components.html"
+                        title="next chapter">Components</a></p>
+  <h3>This Page</h3>
+  <ul class="this-page-menu">
+    <li><a href="../_sources/architecture/architecture.txt"
+           rel="nofollow">Show Source</a></li>
+  </ul>
+        </div>
+      </div>
+
+
+    <div class="document">
+      <div class="documentwrapper">
+        <div class="bodywrapper">
+          <div class="body">
+            
+  <div class="section" id="architecture">
+<span id="id1"></span><h1>Architecture<a class="headerlink" href="#architecture" title="Permalink to this headline">¶</a></h1>
+<div class="section" id="the-big-picture">
+<h2>The Big Picture<a class="headerlink" href="#the-big-picture" title="Permalink to this headline">¶</a></h2>
+<div class="figure align-center">
+<img alt="../_images/geonode_component_architecture.png" src="../_images/geonode_component_architecture.png" />
+<p class="caption">GeoNode Component Architecture</p>
+</div>
+</div>
+<div class="section" id="django-architecture">
+<h2>Django Architecture<a class="headerlink" href="#django-architecture" title="Permalink to this headline">¶</a></h2>
+<p>www.djangoproject.com</p>
+<div class="section" id="mvc-mvt">
+<h3>MVC/MVT<a class="headerlink" href="#mvc-mvt" title="Permalink to this headline">¶</a></h3>
+<dl class="docutils">
+<dt>MVC</dt>
+<dd>Model, View, Controller</dd>
+<dt>MVT</dt>
+<dd>Model, View, Template</dd>
+</dl>
+<ul class="simple">
+<li>Model represents application data and provides rich ORM functionality.</li>
+<li>Views are a rendering of a Model most often using the Django template engine.</li>
+<li>In Django, the controller part of this commonly discussed, layered architecture is a
+subject of discussion. According to the standard definition, the controller is the
+layer or component through which the user interacts and model changes occur.</li>
+</ul>
+<p>More: <a class="reference external" href="http://reinout.vanrees.org/weblog/2011/12/13/django-mvc-explanation.html">http://reinout.vanrees.org/weblog/2011/12/13/django-mvc-explanation.html</a></p>
+</div>
+<div class="section" id="wsgi">
+<h3>WSGI<a class="headerlink" href="#wsgi" title="Permalink to this headline">¶</a></h3>
+<dl class="docutils">
+<dt>WSGI</dt>
+<dd>Web Server Gateway Interface (whis-gey)</dd>
+</dl>
+<ul class="simple">
+<li>This is a python specification for supporting a common interface between all of the
+various web frameworks and an application (Apache, for example) that is &#8216;serving&#8217;.</li>
+<li>This allows any WSGI compliant framework to be hosted in any WSGI compliant server.</li>
+<li>For most GeoNode development, the details of this specification may be ignored.</li>
+</ul>
+<p>More: <a class="reference external" href="http://en.wikipedia.org/wiki/Wsgi">http://en.wikipedia.org/wiki/Wsgi</a></p>
+</div>
+</div>
+<div class="section" id="geonode-and-geoserver">
+<h2>GeoNode and GeoServer<a class="headerlink" href="#geonode-and-geoserver" title="Permalink to this headline">¶</a></h2>
+<p>GeoNode uses GeoServer for providing OGC services.</p>
+<ul>
+<li><p class="first">GeoNode configures GeoServer via the REST API</p>
+</li>
+<li><p class="first">GeoNode retrieves and caches spatial information from GeoServer. This includes
+relevant OGC service links, spatial metadata, and attribute information.</p>
+<p>In summary, GeoServer contains the layer data, and GeoNode&#8217;s layer model
+extends the metadata present in GeoServer with its own.</p>
+</li>
+<li><p class="first">GeoNode can discover existing layers published in a GeoServer via the WMS
+capabilities document.</p>
+</li>
+<li><p class="first">GeoServer delegates authentication and authorization to GeoNode (see <a class="reference external" href="https://github.com/GeoNode/geoserver-geonode-ext/blob/master/README.md">README</a>).</p>
+</li>
+<li><p class="first">Data uploaded to GeoNode is first processed in GeoNode and finally published
+to GeoServer (or ingested into the spatial database).</p>
+</li>
+</ul>
+<p>More:  <a class="reference external" href="http://geoserver.org">http://geoserver.org</a></p>
+</div>
+<div class="section" id="geonode-and-postgresql-postgis">
+<h2>GeoNode and PostgreSQL/PostGIS<a class="headerlink" href="#geonode-and-postgresql-postgis" title="Permalink to this headline">¶</a></h2>
+<p>In production, GeoNode is configured to use PostgreSQL/PostGIS for it&#8217;s persistent
+store. In development and testing mode, often an embedded sqlite database is used.
+The latter is not suggested for production.</p>
+<ul class="simple">
+<li>The database stores configuration and application information. This includes
+users, layers, maps, etc.</li>
+<li>It is recommended that GeoNode be configured to use PostgresSQL/PostGIS for
+storing vector data as well. While serving layers directly from shapefile
+allows for adequate performance in many cases, storing features in the database
+allows for better performance especially when using complex style rules based
+on attributes.</li>
+</ul>
+</div>
+<div class="section" id="geonode-and-pycsw">
+<h2>GeoNode and pycsw<a class="headerlink" href="#geonode-and-pycsw" title="Permalink to this headline">¶</a></h2>
+<p>GeoNode is built with <a class="reference external" href="http://pycsw.org">pycsw</a> embedded as the default CSW server component.</p>
+<div class="section" id="publishing">
+<h3>Publishing<a class="headerlink" href="#publishing" title="Permalink to this headline">¶</a></h3>
+<p>Since pycsw is embedded in GeoNode, layers published within GeoNode are automatically published
+to pycsw and discoverable via CSW.  No additional configuration or actions are required to publish
+layers, maps or documents to pycsw.</p>
+</div>
+<div class="section" id="discovery">
+<h3>Discovery<a class="headerlink" href="#discovery" title="Permalink to this headline">¶</a></h3>
+<p>GeoNode&#8217;s CSW endpoint is deployed available at <tt class="docutils literal"><span class="pre">http://localhost:8000/catalogue/csw</span></tt> and is
+available for clients to use for standards-based discovery.  See <a class="reference external" href="http://docs.pycsw.org/en/latest/tools.html">http://docs.pycsw.org/en/latest/tools.html</a>
+for a list of CSW clients and tools.</p>
+</div>
+</div>
+<div class="section" id="javascript-in-geonode">
+<h2>Javascript in GeoNode<a class="headerlink" href="#javascript-in-geonode" title="Permalink to this headline">¶</a></h2>
+<ul class="simple">
+<li>GeoExplorer runs in the browser and talks with GeoNode and GeoServer&#8217;s APIs
+using AJAX.</li>
+<li>jQuery is used for incremental enhancement of many GeoNode HTML interfaces.</li>
+</ul>
+</div>
+</div>
+
+
+          </div>
+        </div>
+      </div>
+      <div class="clearer"></div>
+    </div>
+    <div class="related">
+      <h3>Navigation</h3>
+      <ul>
+            <li class="right" style="margin-right: 10px">
+              <a href="../genindex.html" title="General Index"
+                 accesskey="I">index</a></li>
+            <li class="right" >
+              <a href="components.html" title="Components"
+                 accesskey="N">next</a> |</li>
+            <li class="right" >
+              <a href="index.html" title="Reference documentation"
+                 accesskey="P">previous</a> |</li>
+        <li><a href="../index.html">doc</a> &raquo;</li>
+          <li><a href="index.html" accesskey="U">Reference documentation</a> &raquo;</li>
+        <li><a href="#">Architecture</a></li>
+      </ul>
+    </div>
+
+    <div class="footer">
+        &copy; Copyright 2014 GeoSolutions.
+      Last updated on Aug 03, 2015.
+      Created using <a href="http://sphinx-doc.org/">Sphinx</a> 1.2.2.
+    </div>
+  </body>
+</html>

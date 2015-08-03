@@ -1,0 +1,147 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
+  "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+
+
+<html xmlns="http://www.w3.org/1999/xhtml">
+  <head>
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+    
+    <title>Supported Browsers &mdash; DRDSI CKAN doc</title>
+    
+    <link rel="stylesheet" href="../_static/geosolutions.css" type="text/css" />
+    <link rel="stylesheet" href="../_static/pygments.css" type="text/css" />
+    
+    <script type="text/javascript">
+      var DOCUMENTATION_OPTIONS = {
+        URL_ROOT:    '../',
+        VERSION:     '20140422',
+        COLLAPSE_INDEX: false,
+        FILE_SUFFIX: '.html',
+        HAS_SOURCE:  true
+      };
+    </script>
+    <script type="text/javascript" src="../_static/jquery.js"></script>
+    <script type="text/javascript" src="../_static/underscore.js"></script>
+    <script type="text/javascript" src="../_static/doctools.js"></script>
+    <link rel="shortcut icon" href="../_static/favicon.ico"/>
+    <link rel="top" title="DRDSI CKAN doc" href="../index.html" />
+    <link rel="up" title="Reference documentation" href="index.html" />
+    <link rel="next" title="Developers Reference" href="developers/index.html" />
+    <link rel="prev" title="Localization" href="localization.html" />
+    
+
+  </head>
+  <body>
+    <div class="header">
+        <div class="wrap">
+			
+            <div class="logo">
+			<a href="http://geo-solutions.it/"><img src="../_static/img/geosolutions.png" alt="GeoSolutions" /></a>
+			<div class="social-container"> 
+				<ul id="social">
+					<li><a href="https://plus.google.com/u/0/100131944378031878024/posts" id="gplus">Google+</a></li>
+					<li><a href="http://twitter.com/geosolutions_it/" id="twitter">Twitter</a></li>
+				</ul>
+			</div>
+			</div>
+					
+            <h2 class="docstitle"><a href="../index.html">DRDSI CKAN doc</a></h2>
+			
+        </div>
+    </div>
+
+
+      <div class="sphinxsidebar">
+        <div class="sphinxsidebarwrapper">
+  <h3><a href="../index.html">Table Of Contents</a></h3>
+  <ul>
+<li><a class="reference internal" href="#">Supported Browsers</a><ul>
+<li><a class="reference internal" href="#internet-explorer">Internet Explorer</a></li>
+<li><a class="reference internal" href="#testing-on-internet-explorer">Testing on Internet Explorer</a></li>
+</ul>
+</li>
+</ul>
+
+  <h4>Previous topic</h4>
+  <p class="topless"><a href="localization.html"
+                        title="previous chapter">Localization</a></p>
+  <h4>Next topic</h4>
+  <p class="topless"><a href="developers/index.html"
+                        title="next chapter">Developers Reference</a></p>
+  <h3>This Page</h3>
+  <ul class="this-page-menu">
+    <li><a href="../_sources/architecture/browsers.txt"
+           rel="nofollow">Show Source</a></li>
+  </ul>
+        </div>
+      </div>
+
+
+    <div class="document">
+      <div class="documentwrapper">
+        <div class="bodywrapper">
+          <div class="body">
+            
+  <div class="section" id="supported-browsers">
+<span id="browsers"></span><h1>Supported Browsers<a class="headerlink" href="#supported-browsers" title="Permalink to this headline">¶</a></h1>
+<p>GeoNode is known to work on all modern web browsers. This list includes (but is not limited to):</p>
+<ul class="simple">
+<li><a class="reference external" href="http://www.google.com/chrome/">Google Chrome</a>.</li>
+<li><a class="reference external" href="https://www.apple.com/safari/">Apple Safari</a>.</li>
+<li><a class="reference external" href="https://www.mozilla.org/en-US/firefox/new/">Mozilla Firefox</a>.</li>
+<li><a class="reference external" href="http://windows.microsoft.com/en-us/internet-explorer/download-ie">Microsoft Internet Explorer</a>.</li>
+</ul>
+<p>The vast majority of GeoNode developers do their work with Google Chrome.</p>
+<div class="section" id="internet-explorer">
+<h2>Internet Explorer<a class="headerlink" href="#internet-explorer" title="Permalink to this headline">¶</a></h2>
+<p>Versions of Microsoft Internet Explorer older than 10 exhibit known issues when used to browse a GeoNode site. As such a message is displayed warning the user that they should upgrade their browser.</p>
+<div class="figure">
+<img alt="../_images/ie_message.png" src="../_images/ie_message.png" />
+</div>
+</div>
+<div class="section" id="testing-on-internet-explorer">
+<h2>Testing on Internet Explorer<a class="headerlink" href="#testing-on-internet-explorer" title="Permalink to this headline">¶</a></h2>
+<p>When working on front end code, developers should take care to test carefully with Microsoft Internet Explorer to ensure that the features they are working on do indeed work correctly and on this browser. It is good practice to test on all browsers available, but the use of modern front end libraries like bootstrap and jquery make it much more likely code will work across browsers seamlessly.</p>
+<p>In order to test on Internet Explorer, developers can use the <a class="reference external" href="https://www.modern.ie/en-us">Modern IE</a> site to download virutal machines for use in <a class="reference external" href="https://www.virtualbox.org/">Oracle VM Virtual Box</a>.</p>
+<div class="figure">
+<img alt="../_images/modern_ie.png" src="../_images/modern_ie.png" />
+</div>
+<p>Once the VM is downloaded, follow the instructions to configure it in your VirtualBox setup.</p>
+<div class="figure">
+<img alt="../_images/virtualbox.png" src="../_images/virtualbox.png" />
+</div>
+<p>After the VM is setup, you can access your development instance of GeoNode by visiting the IP address of your host machine or on the bridged interface (usually 10.0.2.2) and begin your testing.</p>
+</div>
+</div>
+
+
+          </div>
+        </div>
+      </div>
+      <div class="clearer"></div>
+    </div>
+    <div class="related">
+      <h3>Navigation</h3>
+      <ul>
+            <li class="right" style="margin-right: 10px">
+              <a href="../genindex.html" title="General Index"
+                 accesskey="I">index</a></li>
+            <li class="right" >
+              <a href="developers/index.html" title="Developers Reference"
+                 accesskey="N">next</a> |</li>
+            <li class="right" >
+              <a href="localization.html" title="Localization"
+                 accesskey="P">previous</a> |</li>
+        <li><a href="../index.html">doc</a> &raquo;</li>
+          <li><a href="index.html" accesskey="U">Reference documentation</a> &raquo;</li>
+        <li><a href="#">Supported Browsers</a></li>
+      </ul>
+    </div>
+
+    <div class="footer">
+        &copy; Copyright 2014 GeoSolutions.
+      Last updated on Aug 03, 2015.
+      Created using <a href="http://sphinx-doc.org/">Sphinx</a> 1.2.2.
+    </div>
+  </body>
+</html>

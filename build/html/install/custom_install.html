@@ -1,0 +1,601 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
+  "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+
+
+<html xmlns="http://www.w3.org/1999/xhtml">
+  <head>
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+    
+    <title>Custom Installation Guide &mdash; DRDSI CKAN doc</title>
+    
+    <link rel="stylesheet" href="../_static/geosolutions.css" type="text/css" />
+    <link rel="stylesheet" href="../_static/pygments.css" type="text/css" />
+    
+    <script type="text/javascript">
+      var DOCUMENTATION_OPTIONS = {
+        URL_ROOT:    '../',
+        VERSION:     '20140422',
+        COLLAPSE_INDEX: false,
+        FILE_SUFFIX: '.html',
+        HAS_SOURCE:  true
+      };
+    </script>
+    <script type="text/javascript" src="../_static/jquery.js"></script>
+    <script type="text/javascript" src="../_static/underscore.js"></script>
+    <script type="text/javascript" src="../_static/doctools.js"></script>
+    <link rel="shortcut icon" href="../_static/favicon.ico"/>
+    <link rel="top" title="DRDSI CKAN doc" href="../index.html" />
+    
+
+  </head>
+  <body>
+    <div class="header">
+        <div class="wrap">
+			
+            <div class="logo">
+			<a href="http://geo-solutions.it/"><img src="../_static/img/geosolutions.png" alt="GeoSolutions" /></a>
+			<div class="social-container"> 
+				<ul id="social">
+					<li><a href="https://plus.google.com/u/0/100131944378031878024/posts" id="gplus">Google+</a></li>
+					<li><a href="http://twitter.com/geosolutions_it/" id="twitter">Twitter</a></li>
+				</ul>
+			</div>
+			</div>
+					
+            <h2 class="docstitle"><a href="../index.html">DRDSI CKAN doc</a></h2>
+			
+        </div>
+    </div>
+
+
+      <div class="sphinxsidebar">
+        <div class="sphinxsidebarwrapper">
+  <h3><a href="../index.html">Table Of Contents</a></h3>
+  <ul>
+<li><a class="reference internal" href="#">Custom Installation Guide</a><ul>
+<li><a class="reference internal" href="#recommended-minimum-system-requirements">Recommended Minimum System Requirements</a></li>
+<li><a class="reference internal" href="#installing-dependencies">Installing Dependencies</a></li>
+<li><a class="reference internal" href="#configure-manually">Configure Manually</a><ul>
+<li><a class="reference internal" href="#download-code">Download Code</a></li>
+</ul>
+</li>
+<li><a class="reference internal" href="#configure">Configure</a><ul>
+<li><a class="reference internal" href="#configure-using-the-ubuntu-config-file">Configure using the Ubuntu config file</a></li>
+</ul>
+</li>
+</ul>
+</li>
+</ul>
+
+  <h3>This Page</h3>
+  <ul class="this-page-menu">
+    <li><a href="../_sources/install/custom_install.txt"
+           rel="nofollow">Show Source</a></li>
+  </ul>
+        </div>
+      </div>
+
+
+    <div class="document">
+      <div class="documentwrapper">
+        <div class="bodywrapper">
+          <div class="body">
+            
+  <div class="section" id="custom-installation-guide">
+<span id="custom-install"></span><h1>Custom Installation Guide<a class="headerlink" href="#custom-installation-guide" title="Permalink to this headline">¶</a></h1>
+<p>Use this if you want to know how to manually deploy GeoNode or if you want to
+deploy it on a server
+which is not fresh. Otherwise please use the <a class="reference internal" href="quick_install.html#quick-installation"><em>Quick Installation Guide</em></a> .
+The manual installation is intended for those who are comfortable with Linux
+system administration.</p>
+<div class="admonition note">
+<p class="first admonition-title">Note</p>
+<p class="last">Here is the link to our <a class="reference internal" href="quick_install.html#quick-installation"><em>Quick Installation Guide</em></a> .</p>
+</div>
+<div class="section" id="recommended-minimum-system-requirements">
+<h2>Recommended Minimum System Requirements<a class="headerlink" href="#recommended-minimum-system-requirements" title="Permalink to this headline">¶</a></h2>
+<p>For deployment of GeoNode on a single server,
+the following are the <em>bare minimum</em> system requirements:</p>
+<ul class="simple">
+<li>6GB of RAM, including swap space.</li>
+<li>2.2GHz processor.  (Additional processing power may be required for multiple
+concurrent styling renderings)</li>
+<li>1 GB software disk usage.</li>
+<li>Additional disk space for any data hosted with GeoNode and tiles cached with
+GeoWebCache.
+For spatial data, cached tiles, and &#8220;scratch space&#8221; useful for
+administration, a decent baseline size for GeoNode deployments is 100GB.</li>
+<li>64-bit hardware recommended.</li>
+</ul>
+</div>
+<div class="section" id="installing-dependencies">
+<h2>Installing Dependencies<a class="headerlink" href="#installing-dependencies" title="Permalink to this headline">¶</a></h2>
+<p>Some external software must be installed before you can install GeoNode.
+The GeoNode package contains both the Java and Django web application code for
+GeoNode, but requires some external software installed to complete the GeoNode
+platform.</p>
+<p>This includes:</p>
+<ul class="simple">
+<li>A Python interpreter</li>
+<li>A Java Runtime Environment (JRE)</li>
+<li>Apache Tomcat servlet container</li>
+<li>Python development libraries</li>
+<li>PostgresQL database</li>
+<li>The GDAL, GEOS, and OGR geospatial software libraries</li>
+</ul>
+<p>For convenience, appropriate commands to retrieve these dependencies on Ubuntu
+14.04 LTS are listed below:</p>
+<div class="highlight-console"><div class="highlight"><pre><span class="gp">$</span> sudo apt-get install         <span class="se">\</span>
+<span class="go">        apache2                \</span>
+<span class="go">        gcc                    \</span>
+<span class="go">        gdal-bin               \</span>
+<span class="go">        gettext                \</span>
+<span class="go">        gettext                \</span>
+<span class="go">        git-core               \</span>
+<span class="go">        libapache2-mod-wsgi    \</span>
+<span class="go">        libgeos-dev            \</span>
+<span class="go">        libjpeg-dev            \</span>
+<span class="go">        libpng-dev             \</span>
+<span class="go">        libpq-dev              \</span>
+<span class="go">        libproj-dev            \</span>
+<span class="go">        libxml2-dev            \</span>
+<span class="go">        libxslt-dev            \</span>
+<span class="go">        openjdk-7-jre          \</span>
+<span class="go">        patch                  \</span>
+<span class="go">        postgresql             \</span>
+<span class="go">        postgis                \</span>
+<span class="go">        postgresql-9.3-postgis-scripts \</span>
+<span class="go">        postgresql-contrib     \</span>
+<span class="go">        python                 \</span>
+<span class="go">        python-dev             \</span>
+<span class="go">        python-gdal            \</span>
+<span class="go">        python-imaging         \</span>
+<span class="go">        python-pastescript     \</span>
+<span class="go">        python-psycopg2        \</span>
+<span class="go">        python-support         \</span>
+<span class="go">        python-urlgrabber      \</span>
+<span class="go">        python-virtualenv      \</span>
+<span class="go">        tomcat7                \</span>
+<span class="go">        unzip                  \</span>
+<span class="go">        zip</span>
+</pre></div>
+</div>
+<div class="admonition-todo admonition" id="index-0">
+<p class="first admonition-title">Todo</p>
+<p class="last">is this the complete and up-to-date list of dependencies??</p>
+</div>
+<div class="admonition note">
+<p class="first admonition-title">Note</p>
+<p class="last">Before you copy the command into the terminal and run it, check the
+versions, you might have to adjust them!</p>
+</div>
+<div class="admonition note">
+<p class="first admonition-title">Note</p>
+<p class="last">Be sure that you&#8217;ve installed all the required dependencies before
+you go further with the installation of GeoNode.</p>
+</div>
+<p>Please choose between one of the two methods to finish the
+installation-configuration of GeoNode:</p>
+<ol class="arabic simple">
+<li><a class="reference internal" href="#configure-using-the-ubuntu-config-file">Configure using the ubuntu config file</a>.
+This is the recommended way, using the provided .sh scripts</li>
+<li><a class="reference internal" href="#configure-manually">Configure manually</a>, doing each step by hand as opposed to using the .sh scripts</li>
+</ol>
+<p>In the end you will have the same running instance of Geonode.</p>
+</div>
+<div class="section" id="configure-manually">
+<h2>Configure Manually<a class="headerlink" href="#configure-manually" title="Permalink to this headline">¶</a></h2>
+<div class="section" id="download-code">
+<h3>Download Code<a class="headerlink" href="#download-code" title="Permalink to this headline">¶</a></h3>
+<p>Download the code using git.</p>
+<div class="highlight-console"><div class="highlight"><pre><span class="gp">#</span> download code from github
+<span class="gp">$</span> git clone https://github.com/GeoNode/geonode.git
+
+<span class="gp">#</span> change into the folder called geonde
+<span class="gp">$</span> <span class="nb">cd </span>geonode
+
+<span class="gp">#</span> Installs django etc.
+<span class="gp">$</span> sudo pip install -e .
+
+<span class="gp">#</span> Downloads geoserver.war
+<span class="gp">$</span> sudo paver setup
+</pre></div>
+</div>
+<p>Now if you like to see if all is working so far type:</p>
+<div class="highlight-console"><div class="highlight"><pre><span class="gp">#</span> starts everything with default configs! NOT <span class="k">for </span>production!
+<span class="gp">$</span> sudo paver start
+
+<span class="gp">#</span> stops all and you can <span class="k">continue </span>with <span class="nb">complete </span>install
+<span class="gp">$</span> sudo paver stop
+</pre></div>
+</div>
+<p>This will start GeoNode at <a class="reference external" href="http://localhost:8000/">http://localhost:8000/</a> with the default configurations, using Jetty as the servlet container and sqlite3 as the database.</p>
+<div class="admonition note">
+<p class="first admonition-title">Note</p>
+<p class="last">If running the paver start command produces an &#8220;Address already in use&#8221; exception for port 8080, try running the paver stop command and then paver start again.  If the exception still occurs then another web server is already bound to that port.  If this is a fresh Ubuntu install then Tomcat was automatically started when you installed the package and you can safely stop it with <tt class="docutils literal"><span class="pre">sudo</span> <span class="pre">service</span> <span class="pre">tomcat7</span> <span class="pre">stop</span></tt>.</p>
+</div>
+<p>Also GeoNode won&#8217;t start without using the command above.
+To change this, the following configurations of the used components have to be done.</p>
+</div>
+</div>
+<div class="section" id="configure">
+<h2>Configure<a class="headerlink" href="#configure" title="Permalink to this headline">¶</a></h2>
+<p>Complete steps to configure Geonode include the stack:</p>
+<dl class="docutils">
+<dt>Servlet Container</dt>
+<dd>Apache Tomcat for Geoserver</dd>
+<dt>Static File Server</dt>
+<dd>Apache httpd</dd>
+<dt>Python/WSGI Container</dt>
+<dd>mod_wsgi</dd>
+<dt>Django Database</dt>
+<dd>PostgresQL</dd>
+</dl>
+<p>At this point, GeoNode uses <em>sqlite3</em> as the default db.
+The following steps will show you how to make geonode to use <em>postgresql</em> and
+<em>postgis</em>.</p>
+<p><strong>Create geonode user and database</strong></p>
+<p>First of all a user called <tt class="docutils literal"><span class="pre">geonode</span></tt> (with password <tt class="docutils literal"><span class="pre">geonode</span></tt>),
+as well as a database called <tt class="docutils literal"><span class="pre">geonode</span></tt> has to be created.</p>
+<p>To create the user:</p>
+<div class="highlight-console"><div class="highlight"><pre><span class="gp">$</span> sudo -u postgres createuser -P geonode
+</pre></div>
+</div>
+<p>Now you will be asked to enter a password.
+This must be <tt class="docutils literal"><span class="pre">geonode</span></tt> (you can change it if you want to, but be aware that you
+have to edit the <tt class="docutils literal"><span class="pre">local_settings.py</span></tt> if you do so!)</p>
+<p>To create the databases (the geonode one and the spatial for shapefile imports):</p>
+<div class="highlight-console"><div class="highlight"><pre><span class="gp">$</span> sudo -u postgres createdb -O geonode geonode
+<span class="gp">$</span> sudo -u postgres createdb -O geonode geonode_data
+<span class="gp">$</span> sudo su postgres
+<span class="gp">$</span> psql -d geonode_data -c <span class="s1">&#39;CREATE EXTENSION postgis;&#39;</span>
+<span class="gp">$</span> psql -d geonode-imports -c <span class="s1">&#39;GRANT ALL ON geometry_columns TO PUBLIC;&#39;</span>
+<span class="gp">$</span> psql -d geonode-imports -c <span class="s1">&#39;GRANT ALL ON spatial_ref_sys TO PUBLIC;&#39;</span>
+<span class="gp">$</span> <span class="nb">exit</span>
+</pre></div>
+</div>
+<p>This creates databases called <em>geonode</em> and <em>geonode_data</em>
+(which automatically has the postgis extension as well!)
+with owner <em>geonode</em>.</p>
+<p><strong>Change authentication method</strong></p>
+<p>In the postgres config path, <tt class="docutils literal"><span class="pre">/etc/postgresql/9.3/main</span></tt>, you should find the
+file <tt class="docutils literal"><span class="pre">pg_hba.conf</span></tt>.
+This file has to be edited in order to allow the geonode user to have access to
+the database. Therefore change the directory to this file and open it:</p>
+<div class="highlight-console"><div class="highlight"><pre><span class="gp">$</span> <span class="nb">cd</span> /etc/postgresql/9.3/main
+<span class="gp">$</span> sudo vi pg_hba.conf
+</pre></div>
+</div>
+<p>At this point, the file should contain the following default settings:</p>
+<div class="figure">
+<img alt="../_images/pg_hba_detail.png" src="../_images/pg_hba_detail.png" />
+</div>
+<p>and then change the authentication method of the following entry from <em>peer</em> to <em>trust</em>:</p>
+<div class="highlight-python"><div class="highlight"><pre>#TYPE   DATABASE    USER    METHOD
+local   all         all     md5
+</pre></div>
+</div>
+<div class="admonition-todo admonition" id="index-1">
+<p class="first admonition-title">Todo</p>
+<p class="last">should be &#8216;trust&#8217; not &#8216;md5&#8217;?</p>
+</div>
+<p>After changing this file, the <tt class="docutils literal"><span class="pre">postgres</span></tt> service has to be restarted.
+This is essential, because otherwise the changed configurations won&#8217;t be considered!</p>
+<p>To restart the <tt class="docutils literal"><span class="pre">postgresql</span></tt> server type</p>
+<div class="highlight-console"><div class="highlight"><pre><span class="gp">$</span> sudo service postgresql restart
+</pre></div>
+</div>
+<div class="admonition note">
+<p class="first admonition-title">Note</p>
+<p class="last">service could be also called postgresql-9.1 or postgresql-9.2
+depending on your installation</p>
+</div>
+<p>Additional entry:</p>
+<div class="highlight-python"><div class="highlight"><pre>#Type   DATABASE    USER       ADDRESS         METHOD
+host    geonode     geonode    127.0.0.1/32    md5
+</pre></div>
+</div>
+<p><strong>Setup local settings</strong></p>
+<p>The next step is to set the local settings.</p>
+<p>In the directory <tt class="docutils literal"><span class="pre">../geonode/geonode</span></tt> a file called
+<tt class="docutils literal"><span class="pre">local_settings.py.sample</span></tt> exists.
+It includes all the settings to change the default db from <tt class="docutils literal"><span class="pre">sqlite3</span></tt> to
+<tt class="docutils literal"><span class="pre">postgresql</span></tt>.
+Rename the file to <tt class="docutils literal"><span class="pre">local_settings.py</span></tt>.</p>
+<div class="highlight-console"><div class="highlight"><pre><span class="gp">$</span> sudo mv geonode/local_settings.py.sample geonode/local_settings.py
+</pre></div>
+</div>
+<p>Uncomment line 10 and modify line 12 as follows:</p>
+<div class="highlight-python"><div class="highlight"><pre>&#39;ENGINE&#39;: &#39;django.contrib.gis.db.backends.postgis&#39;,
+&#39;NAME&#39;: &#39;geonode-imports&#39;,
+</pre></div>
+</div>
+<div class="admonition note">
+<p class="first admonition-title">Note</p>
+<p class="last">If you do not use <em>geonode</em> as password for your database,
+then you have to edit the local_settings.py and change your password in
+this part of the file.</p>
+</div>
+<p>Add the following as a directive:</p>
+<div class="highlight-python"><div class="highlight"><pre><span class="n">ALLOWED_HOST</span> <span class="o">=</span> <span class="p">[</span><span class="s">&#39;domain or IP&#39;</span><span class="p">]</span>
+</pre></div>
+</div>
+<p><strong>Synchronise db</strong></p>
+<p>To synchronise the database call the django command <tt class="docutils literal"><span class="pre">syncdb</span></tt></p>
+<div class="highlight-console"><div class="highlight"><pre><span class="gp">$</span> python manage.py syncdb --noinput --all
+</pre></div>
+</div>
+<p>The <strong>Django</strong> frontend can be served in various ways,
+one of the most performant is Apache httpd with mod_wsgi installed.</p>
+<p>You will also need a web server capable of simply serving static files;
+if you are using Apache httpd it can serve this purpose as well.</p>
+<div class="admonition note">
+<p class="first admonition-title">Note</p>
+<p class="last">The Django project has further documentation on how to serve Django
+applications at <a class="reference external" href="https://docs.djangoproject.com/en/1.5/howto/deployment/">https://docs.djangoproject.com/en/1.5/howto/deployment/</a> .</p>
+</div>
+<p>Before the webserver will be configured, some other steps are needed to execute.</p>
+<p><strong>Create new superuser</strong></p>
+<p>A new django superuser has to be created</p>
+<div class="highlight-console"><div class="highlight"><pre><span class="gp">$</span> python manage.py createsuperuser
+</pre></div>
+</div>
+<p>You will be asked to enter a username, an email address and a password.</p>
+<p><strong>Create local static files</strong></p>
+<p>The <tt class="docutils literal"><span class="pre">collectstatic</span></tt> command will create a new folder <em>static_root</em>.</p>
+<div class="highlight-console"><div class="highlight"><pre><span class="gp">$</span> python manage.py collectstatic
+</pre></div>
+</div>
+<p><strong>Enable geonode upload function</strong></p>
+<p>An empty folder called <em>uploaded</em> must be created</p>
+<div class="highlight-console"><div class="highlight"><pre><span class="gp">$</span> sudo mkdir -p /home/user/geonode/geonode/uploaded
+</pre></div>
+</div>
+<p>If using apache webserver, change owner to <tt class="docutils literal"><span class="pre">www-data</span></tt></p>
+<div class="highlight-console"><div class="highlight"><pre><span class="gp">$</span> sudo chown www-data -R /home/user/geonode/geonode/uploaded
+</pre></div>
+</div>
+<p><strong>Make apache to load the mod_wsgi module</strong></p>
+<p>If you&#8217;ve done the installation from above,
+you should already have a <em>httpd.conf</em> file that includes one line:</p>
+<div class="highlight-ini"><div class="highlight"><pre>LoadModule wsgi_module /path/to/modules/mod_wsgi.so
+</pre></div>
+</div>
+<div class="admonition note">
+<p class="first admonition-title">Note</p>
+<p class="last">If you do not already have this,
+then please add this line to <tt class="docutils literal"><span class="pre">httpd.conf</span></tt> now!</p>
+</div>
+<p>Beside this module you also have to enable the <tt class="docutils literal"><span class="pre">proxy</span></tt> module.
+This can be done very easily using</p>
+<div class="highlight-console"><div class="highlight"><pre><span class="gp">$</span> sudo a2enmod proxy_http
+</pre></div>
+</div>
+<p>We have to create one more configuration file for geonode.
+Go to the folder <tt class="docutils literal"><span class="pre">sites-available</span></tt> and create a file called <tt class="docutils literal"><span class="pre">geonode</span></tt>:</p>
+<div class="highlight-console"><div class="highlight"><pre><span class="gp">$</span> <span class="nb">cd</span> /etc/apache2/sites-available
+<span class="gp">$</span> sudo gedit geonode
+</pre></div>
+</div>
+<p>This file should include the following, but don´t forget to adjust the paths!</p>
+<div class="highlight-ini"><div class="highlight"><pre>WSGIDaemonProcess geonode python-path=/home/user/geonode:/home/user/.venvs/geonode/lib/python2.7/site-packages user=www-data threads=15 processes=2
+
+&lt;VirtualHost *:80&gt;
+    ServerName http://localhost
+    ServerAdmin webmaster@localhost
+    DocumentRoot /home/user/geonode/geonode
+
+    ErrorLog /var/log/apache2/error.log
+    LogLevel warn
+    CustomLog /var/log/apache2/access.log combined
+
+    WSGIProcessGroup geonode
+    WSGIPassAuthorization On
+    WSGIScriptAlias / /home/user/geonode/geonode/wsgi.py
+
+    &lt;Directory &quot;/home/user/geonode/geonode/&quot;&gt;
+    Order allow,deny
+        Options Indexes FollowSymLinks
+        Allow from all
+        IndexOptions FancyIndexing
+    &lt;/Directory&gt;
+
+    Alias /static/ /home/user/geonode/geonode/static/
+    Alias /uploaded/ /home/user/geonode/geonode/uploaded/
+
+    &lt;Proxy *&gt;
+        Order allow,deny
+        Allow from all
+    &lt;/Proxy&gt;
+
+    ProxyPreserveHost On
+    ProxyPass /geoserver http://localhost:8080/geoserver
+    ProxyPassReverse /geoserver http://localhost:8080/geoserver
+
+&lt;/VirtualHost&gt;
+</pre></div>
+</div>
+<p><strong>Enable the new site</strong></p>
+<div class="highlight-console"><div class="highlight"><pre><span class="gp">$</span> sudo a2ensite geonode
+</pre></div>
+</div>
+<p>This command will create a file <em>geonode</em> in the folder <em>sites-enabled</em>.</p>
+<p><strong>Now reload apache</strong></p>
+<div class="highlight-console"><div class="highlight"><pre><span class="gp">$</span> sudo service apache2 reload
+</pre></div>
+</div>
+<p>If you now type <tt class="docutils literal"><span class="pre">localhost</span></tt> into your webbrowser, the geonode webpage will appear.
+You can now login with your newly created superuser account.
+But if you visit the django admin interface,
+you will only see the content of this webpage without any design.
+To change this, you have to change the following entry in our geonode
+configuration file:</p>
+<div class="highlight-console"><div class="highlight"><pre><span class="gp">$</span> sudo gedit /etc/apache2/sites-available/geonode
+</pre></div>
+</div>
+<p>Change this entry:</p>
+<div class="highlight-python"><div class="highlight"><pre>Alias /static/ /home/user/geonode/geonode/static/
+</pre></div>
+</div>
+<p>to:</p>
+<div class="highlight-python"><div class="highlight"><pre>Alias /static/ /home/user/geonode/geonode/static_root/
+</pre></div>
+</div>
+<p><strong>Now reload apache2</strong></p>
+<p>again using <tt class="docutils literal"><span class="pre">sudo</span> <span class="pre">service</span> <span class="pre">apache2</span> <span class="pre">reload</span></tt> and visit localhost/admin.
+Now you should be able to see this:</p>
+<div class="figure">
+<img alt="install/img/admin_interface.PNG" src="install/img/admin_interface.PNG" />
+</div>
+<div class="highlight-console"><div class="highlight"><pre><span class="gp">$</span> sudo chown www-data:www-data /home/user/geonode/geonode/static/
+<span class="gp">$</span> sudo chown www-data:www-data /home/user/geonode/geonode/uploaded/
+<span class="gp">$</span> sudo chown www-data:www-data /home/user/geonode/geonode/static_root/
+<span class="gp">$</span> sudo service apache2 reload
+</pre></div>
+</div>
+<p>The <strong>GeoServer</strong> web application must be served using a <em>Java Servlet container</em>;
+two popular and free containers are Jetty and Tomcat.
+Jetty is used as default in your GeoNode installation.
+Typically a Java web application (WARs) can be deployed by simply copying the
+<tt class="docutils literal"><span class="pre">.war</span></tt> file into the appropriate place.
+So if you are going to use Tomcat instead, then copy the <tt class="docutils literal"><span class="pre">geoserver.war</span></tt> file
+into Tomcat&#8217;s webapps directory, as shown in the steps below.</p>
+<p><strong>Deploy your geoserver with Tomcat</strong></p>
+<p>To do so we need Tomcat installed and <em>not</em> running.
+So if you&#8217;ve got Tomcat running at the moment, stop it:</p>
+<div class="highlight-console"><div class="highlight"><pre><span class="gp">$</span> sudo /etc/init.d/tomcat7 stop
+</pre></div>
+</div>
+<p>You can find the <tt class="docutils literal"><span class="pre">geoserver.war</span></tt> in the folder downloaded in your geonode directory:</p>
+<div class="highlight-python"><div class="highlight"><pre><span class="n">geonode</span><span class="o">/</span><span class="n">downloaded</span><span class="o">/</span><span class="n">geoserver</span><span class="o">.</span><span class="n">war</span>
+</pre></div>
+</div>
+<p>Now copy this file into the <tt class="docutils literal"><span class="pre">webapps</span></tt> folder of tomcat:</p>
+<div class="highlight-console"><div class="highlight"><pre><span class="gp">$</span> sudo mv geonode/downloaded/geoserver.war /var/lib/tomcat7/webapps/
+</pre></div>
+</div>
+<p>By starting tomcat it will unpack the geoserver.war and create a new directory
+<tt class="docutils literal"><span class="pre">tomcat/webapps/geoserver</span></tt>:</p>
+<div class="highlight-console"><div class="highlight"><pre><span class="gp">$</span> sudo /etc/init.d/tomcat7 start
+</pre></div>
+</div>
+<p>Let&#8217;s try to visit <a class="reference external" href="http://localhost:8080/geoserver">http://localhost:8080/geoserver</a> or <tt class="docutils literal"><span class="pre">localhost/geoserver</span></tt>.
+You will now see the geoserver homepage:</p>
+<div class="figure">
+<img alt="install/img/geoserver_webpage.PNG" src="install/img/geoserver_webpage.PNG" />
+</div>
+<div class="admonition warning">
+<p class="first admonition-title">Warning</p>
+<p class="last">Geoserver is not a Vanilla Geoserver install, please use the
+geoserver.war that comes with geonode.
+In the future we might use a Vanilla Geoserver, it is being discussed.</p>
+</div>
+<p>GeoNode&#8217;s GeoServer integration requires some specific extensions to help
+GeoNode in managing GeoServer layers.
+GeoNode releases include a GeoServer WAR archive with these extensions
+pre-installed.
+However, some manual configuration may still be needed in case of not standard
+installation.</p>
+<p><strong>Configure GeoServer</strong></p>
+<p>Configure GeoServer with the location of the GeoNode site, used for
+authentication (so that GeoServer can recognize logins from the main site).
+This setting defaults to <a class="reference external" href="http://localhost:8000/">http://localhost:8000/</a>, so if you are running the
+GeoNode Django application on a different port, or on a different server from
+the one running GeoServer, then you will need to change this in two places.</p>
+<p>Firstly, by adding a block
+of XML to <tt class="docutils literal"><span class="pre">WEB-INF/web.xml</span></tt> within the unpacked application directory, like
+so:</p>
+<div class="highlight-xml"><div class="highlight"><pre><span class="nt">&lt;context-param&gt;</span>
+    <span class="nt">&lt;param-name&gt;</span>GEONODE_BASE_URL<span class="nt">&lt;/param-name&gt;</span>
+    <span class="nt">&lt;param-value&gt;</span>http://localhost/<span class="nt">&lt;/param-value&gt;</span>
+<span class="nt">&lt;/context-param&gt;</span>
+</pre></div>
+</div>
+<p>The <tt class="docutils literal"><span class="pre">&lt;param-value&gt;</span></tt> tag should enclose the URL to the Django application
+homepage.</p>
+<p>And secondly, update the value of the <tt class="docutils literal"><span class="pre">baseUrl</span></tt> tag in
+<tt class="docutils literal"><span class="pre">data/security/auth/geonodeAuthProvider/config.xml</span></tt>:</p>
+<div class="highlight-xml"><div class="highlight"><pre><span class="nt">&lt;org.geonode.security.GeoNodeAuthProviderConfig&gt;</span>
+  <span class="nt">&lt;id&gt;</span>-54fbcd7b:1402c24f6bc:-7fe9<span class="nt">&lt;/id&gt;</span>
+  <span class="nt">&lt;name&gt;</span>geonodeAuthProvider<span class="nt">&lt;/name&gt;</span>
+  <span class="nt">&lt;className&gt;</span>org.geonode.security.GeoNodeAuthenticationProvider<span class="nt">&lt;/className&gt;</span>
+  <span class="nt">&lt;baseUrl&gt;</span>http://localhost/<span class="nt">&lt;/baseUrl&gt;</span>
+<span class="nt">&lt;/org.geonode.security.GeoNodeAuthProviderConfig&gt;</span>
+</pre></div>
+</div>
+<div class="admonition note">
+<p class="first admonition-title">Note</p>
+<p class="last">While we intend to provide a detailed, accurate explanation of the
+installation process, if you run into problems with the process
+described in this document, please don&#8217;t hesitate to let the GeoNode
+team know so we can keep it up to date.</p>
+</div>
+<div class="section" id="configure-using-the-ubuntu-config-file">
+<h3>Configure using the Ubuntu config file<a class="headerlink" href="#configure-using-the-ubuntu-config-file" title="Permalink to this headline">¶</a></h3>
+<p>This is a semi-automatic configuration, involving two .sh scripts.</p>
+<p>Download the code using git.</p>
+<div class="highlight-console"><div class="highlight"><pre><span class="gp">#</span> download code from github
+<span class="gp">$</span> git clone https://github.com/GeoNode/geonode.git
+<span class="gp">$</span> <span class="nb">cd </span>geonode
+</pre></div>
+</div>
+<ul class="simple">
+<li>Installer configuration file <em>(located in ``package/support/config-ubuntu.sh``)</em>
+This is the first thing to edit.</li>
+<li>The installer script <em>(located in ``package/install.sh``)</em>
+Second thing to edit.</li>
+</ul>
+<ol class="arabic simple">
+<li>First open the <tt class="docutils literal"><span class="pre">package/support/config-ubuntu.sh</span></tt> installer configuration file.
+Now provide the details of your installation,
+such as where your webserver looks for documents.</li>
+<li>Second, open <tt class="docutils literal"><span class="pre">install.sh</span></tt> and configure to your needs.</li>
+</ol>
+<div class="admonition note">
+<p class="first admonition-title">Note</p>
+<p class="last">you might have to change the postgresql and postgis versions in
+this file, according to the versions you use!</p>
+</div>
+<p>Once edited (if necessary) run the <tt class="docutils literal"><span class="pre">./install.sh</span></tt> file with the following commands:</p>
+<div class="highlight-console"><div class="highlight"><pre><span class="gp">#</span> change into the folder called <span class="s2">&quot;package&quot;</span>
+<span class="gp">$</span> <span class="nb">cd </span>package
+
+<span class="gp">#</span> run the install.sh with the ubuntu config.sh
+<span class="gp">$</span> sudo ./install.sh support/config-ubuntu.sh
+
+<span class="gp">#</span> call geonode binary django-admin.py create django super user
+<span class="gp">$</span> geonode createsuperuser
+
+<span class="gp">#</span> create the IP address to your address
+<span class="gp">$</span> sudo geonode-updateip youraddress
+</pre></div>
+</div>
+<p>GeoNode can now be accessed at <a class="reference external" href="http://localhost">http://localhost</a></p>
+</div>
+</div>
+</div>
+
+
+          </div>
+        </div>
+      </div>
+      <div class="clearer"></div>
+    </div>
+    <div class="related">
+      <h3>Navigation</h3>
+      <ul>
+            <li class="right" style="margin-right: 10px">
+              <a href="../genindex.html" title="General Index"
+                 accesskey="I">index</a></li>
+        <li><a href="../index.html">doc</a> &raquo;</li>
+        <li><a href="#">Custom Installation Guide</a></li>
+      </ul>
+    </div>
+
+    <div class="footer">
+        &copy; Copyright 2014 GeoSolutions.
+      Last updated on Aug 03, 2015.
+      Created using <a href="http://sphinx-doc.org/">Sphinx</a> 1.2.2.
+    </div>
+  </body>
+</html>

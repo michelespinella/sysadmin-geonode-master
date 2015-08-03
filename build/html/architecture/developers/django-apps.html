@@ -1,0 +1,495 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
+  "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+
+
+<html xmlns="http://www.w3.org/1999/xhtml">
+  <head>
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+    
+    <title>GeoNode Django Apps &mdash; DRDSI CKAN doc</title>
+    
+    <link rel="stylesheet" href="../../_static/geosolutions.css" type="text/css" />
+    <link rel="stylesheet" href="../../_static/pygments.css" type="text/css" />
+    
+    <script type="text/javascript">
+      var DOCUMENTATION_OPTIONS = {
+        URL_ROOT:    '../../',
+        VERSION:     '20140422',
+        COLLAPSE_INDEX: false,
+        FILE_SUFFIX: '.html',
+        HAS_SOURCE:  true
+      };
+    </script>
+    <script type="text/javascript" src="../../_static/jquery.js"></script>
+    <script type="text/javascript" src="../../_static/underscore.js"></script>
+    <script type="text/javascript" src="../../_static/doctools.js"></script>
+    <link rel="shortcut icon" href="../../_static/favicon.ico"/>
+    <link rel="top" title="DRDSI CKAN doc" href="../../index.html" />
+    <link rel="up" title="Reference documentation" href="../index.html" />
+    <link rel="next" title="JavaScript in GeoNode" href="javascript.html" />
+    <link rel="prev" title="GeoSites: GeoNode Multi-Tenancy" href="geosites.html" />
+    
+
+  </head>
+  <body>
+    <div class="header">
+        <div class="wrap">
+			
+            <div class="logo">
+			<a href="http://geo-solutions.it/"><img src="../../_static/img/geosolutions.png" alt="GeoSolutions" /></a>
+			<div class="social-container"> 
+				<ul id="social">
+					<li><a href="https://plus.google.com/u/0/100131944378031878024/posts" id="gplus">Google+</a></li>
+					<li><a href="http://twitter.com/geosolutions_it/" id="twitter">Twitter</a></li>
+				</ul>
+			</div>
+			</div>
+					
+            <h2 class="docstitle"><a href="../../index.html">DRDSI CKAN doc</a></h2>
+			
+        </div>
+    </div>
+
+
+      <div class="sphinxsidebar">
+        <div class="sphinxsidebarwrapper">
+  <h3><a href="../../index.html">Table Of Contents</a></h3>
+  <ul>
+<li><a class="reference internal" href="#">GeoNode Django Apps</a><ul>
+<li><a class="reference internal" href="#geonode-base-geonode-core-functionality"><tt class="docutils literal"><span class="pre">geonode.base</span></tt> - GeoNode core functionality</a><ul>
+<li><a class="reference internal" href="#template-tags">Template Tags</a></li>
+</ul>
+</li>
+<li><a class="reference internal" href="#geonode-documents-document-creation-and-management"><tt class="docutils literal"><span class="pre">geonode.documents</span></tt> - Document creation and management</a><ul>
+<li><a class="reference internal" href="#settings-py-entries"><tt class="docutils literal"><span class="pre">settings.py</span></tt> Entries</a></li>
+</ul>
+</li>
+<li><a class="reference internal" href="#geonode-layers-layer-creation-and-geospatial-data-management"><tt class="docutils literal"><span class="pre">geonode.layers</span></tt> - Layer creation and geospatial data management</a><ul>
+<li><a class="reference internal" href="#models">Models</a></li>
+<li><a class="reference internal" href="#views">Views</a></li>
+<li><a class="reference internal" href="#id1">Template Tags</a></li>
+<li><a class="reference internal" href="#manage-py-commands"><tt class="docutils literal"><span class="pre">manage.py</span></tt> Commands</a></li>
+</ul>
+</li>
+<li><a class="reference internal" href="#geonode-maps-map-creation-and-geospatial-data-management"><tt class="docutils literal"><span class="pre">geonode.maps</span></tt> - Map creation and geospatial data management</a><ul>
+<li><a class="reference internal" href="#id2">Models</a></li>
+<li><a class="reference internal" href="#id3">Views</a></li>
+<li><a class="reference internal" href="#id4"><tt class="docutils literal"><span class="pre">settings.py</span></tt> Entries</a></li>
+</ul>
+</li>
+<li><a class="reference internal" href="#geonode-proxy-assist-javascript-applications-in-accessing-remote-servers"><tt class="docutils literal"><span class="pre">geonode.proxy</span></tt> - Assist JavaScript applications in accessing remote servers</a><ul>
+<li><a class="reference internal" href="#id5">Views</a></li>
+</ul>
+</li>
+<li><a class="reference internal" href="#geonode-search-provides-the-geonode-search-functionality"><tt class="docutils literal"><span class="pre">geonode.search</span></tt> - Provides the GeoNode search functionality.</a><ul>
+<li><a class="reference internal" href="#id6">Views</a></li>
+</ul>
+</li>
+<li><a class="reference internal" href="#geonode-security-geonode-granular-auth-backend"><tt class="docutils literal"><span class="pre">geonode.security</span></tt> - GeoNode granular Auth Backend</a><ul>
+<li><a class="reference internal" href="#id7"><tt class="docutils literal"><span class="pre">settings.py</span></tt> Entries</a></li>
+<li><a class="reference internal" href="#id8">Template Tags</a></li>
+</ul>
+</li>
+<li><a class="reference internal" href="#django-s-error-templates">Django&#8217;s error templates</a><ul>
+<li><a class="reference internal" href="#html">500.html</a></li>
+</ul>
+</li>
+</ul>
+</li>
+</ul>
+
+  <h4>Previous topic</h4>
+  <p class="topless"><a href="geosites.html"
+                        title="previous chapter">GeoSites: GeoNode Multi-Tenancy</a></p>
+  <h4>Next topic</h4>
+  <p class="topless"><a href="javascript.html"
+                        title="next chapter">JavaScript in GeoNode</a></p>
+  <h3>This Page</h3>
+  <ul class="this-page-menu">
+    <li><a href="../../_sources/architecture/developers/django-apps.txt"
+           rel="nofollow">Show Source</a></li>
+  </ul>
+        </div>
+      </div>
+
+
+    <div class="document">
+      <div class="documentwrapper">
+        <div class="bodywrapper">
+          <div class="body">
+            
+  <div class="section" id="geonode-django-apps">
+<span id="djangoapps"></span><h1>GeoNode Django Apps<a class="headerlink" href="#geonode-django-apps" title="Permalink to this headline">¶</a></h1>
+<p>The user interface of a GeoNode site is built on top of the Django web
+framework.  GeoNode includes a few &#8220;apps&#8221; (reusable Django modules) to support
+development of those user interfaces.  While these apps have reasonable default
+configurations, for customized GeoNode sites you will probably want to adjust
+these apps for your specific needs.</p>
+<div class="section" id="geonode-base-geonode-core-functionality">
+<h2><tt class="docutils literal"><span class="pre">geonode.base</span></tt> - GeoNode core functionality<a class="headerlink" href="#geonode-base-geonode-core-functionality" title="Permalink to this headline">¶</a></h2>
+<blockquote>
+<div>Stores core functionality used throughout the GeoNode application.</div></blockquote>
+<div class="section" id="template-tags">
+<h3>Template Tags<a class="headerlink" href="#template-tags" title="Permalink to this headline">¶</a></h3>
+<p>num_ratings &lt;object&gt;</p>
+<blockquote>
+<div><p>Returns the number of ratings an object has.  Example usage:</p>
+<div class="highlight-python"><div class="highlight"><pre>{% load base_tags %}
+{% num_ratings map as num_votes %}
+
+&lt;p&gt;Map votes: {{num_votes}}.&lt;/p&gt;
+</pre></div>
+</div>
+</div></blockquote>
+<p>categories</p>
+<blockquote>
+<div>Returns topic categories and the count of objects in each category.</div></blockquote>
+</div>
+</div>
+<div class="section" id="geonode-documents-document-creation-and-management">
+<h2><tt class="docutils literal"><span class="pre">geonode.documents</span></tt> - Document creation and management<a class="headerlink" href="#geonode-documents-document-creation-and-management" title="Permalink to this headline">¶</a></h2>
+<blockquote>
+<div>Manages uploaded files that can be related to maps.  Documents can be any type of file that is included in the
+ALLOWED_DOCUMENTS_TYPES setting.</div></blockquote>
+<div class="section" id="settings-py-entries">
+<h3><tt class="docutils literal"><span class="pre">settings.py</span></tt> Entries<a class="headerlink" href="#settings-py-entries" title="Permalink to this headline">¶</a></h3>
+<dl class="docutils">
+<dt>ALLOWED_DOCUMENT_TYPES</dt>
+<dd><p class="first">Default: <tt class="docutils literal"><span class="pre">['doc',</span> <span class="pre">'docx',</span> <span class="pre">'xls',</span> <span class="pre">'xslx',</span> <span class="pre">'pdf',</span> <span class="pre">'zip',</span> <span class="pre">'jpg',</span> <span class="pre">'jpeg',</span> <span class="pre">'tif',</span> <span class="pre">'tiff',</span> <span class="pre">'png',</span> <span class="pre">'gif',</span> <span class="pre">'txt']</span></tt></p>
+<p class="last">A list of acceptable file extensions that can be uploaded to the Documents app.</p>
+</dd>
+<dt>MAX_DOCUMENT_SIZE</dt>
+<dd><p class="first">Default: <tt class="docutils literal"><span class="pre">2</span></tt></p>
+<p class="last">The maximum size (in megabytes) that an upload will be before it gets rejected.</p>
+</dd>
+</dl>
+</div>
+</div>
+<div class="section" id="geonode-layers-layer-creation-and-geospatial-data-management">
+<h2><tt class="docutils literal"><span class="pre">geonode.layers</span></tt> - Layer creation and geospatial data management<a class="headerlink" href="#geonode-layers-layer-creation-and-geospatial-data-management" title="Permalink to this headline">¶</a></h2>
+<p>This Django app provides support for managing and manipulating single geospatial datasets known as layers.</p>
+<div class="section" id="models">
+<h3>Models<a class="headerlink" href="#models" title="Permalink to this headline">¶</a></h3>
+<ul class="simple">
+<li>Attribute - Feature attributes for a layer managed by the GeoNode.</li>
+<li>Layer - A data layer managed by the GeoNode</li>
+<li>Style - A data layer&#8217;s style managed by the GeoNode</li>
+</ul>
+</div>
+<div class="section" id="views">
+<h3>Views<a class="headerlink" href="#views" title="Permalink to this headline">¶</a></h3>
+<ul class="simple">
+<li>Creating, viewing, browsing, editing, and deleting layers and their metadata</li>
+</ul>
+</div>
+<div class="section" id="id1">
+<h3>Template Tags<a class="headerlink" href="#id1" title="Permalink to this headline">¶</a></h3>
+<dl class="docutils">
+<dt>featured_layers</dt>
+<dd>Returns the the 7 newest layers.</dd>
+<dt>layer_thumbnail &lt;layer&gt;</dt>
+<dd>Returns the layer&#8217;s thumbnail.</dd>
+</dl>
+</div>
+<div class="section" id="manage-py-commands">
+<h3><tt class="docutils literal"><span class="pre">manage.py</span></tt> Commands<a class="headerlink" href="#manage-py-commands" title="Permalink to this headline">¶</a></h3>
+<dl class="docutils">
+<dt>importlayers</dt>
+<dd><p class="first"><tt class="docutils literal"><span class="pre">python</span> <span class="pre">manage.py</span> <span class="pre">importlayers</span></tt></p>
+<p class="last">Brings a data file or a directory full of data files into a
+GeoNode site.  Layers are added to the Django database, the
+GeoServer configuration, and the GeoNetwork metadata index.</p>
+</dd>
+<dt>updatelayers</dt>
+<dd><p class="first"><tt class="docutils literal"><span class="pre">python</span> <span class="pre">manage.py</span> <span class="pre">updatelayers</span></tt></p>
+<p class="last">Scan Geoserver for data that has not been added to GeoNode.</p>
+</dd>
+</dl>
+</div>
+</div>
+<div class="section" id="geonode-maps-map-creation-and-geospatial-data-management">
+<h2><tt class="docutils literal"><span class="pre">geonode.maps</span></tt> - Map creation and geospatial data management<a class="headerlink" href="#geonode-maps-map-creation-and-geospatial-data-management" title="Permalink to this headline">¶</a></h2>
+<p>This Django app provides some support for managing and manipulating geospatial
+datasets.  In particular, it provides tools for editing, viewing, and searching
+metadata for data layers, and for editing, viewing, and searching maps that
+aggregate data layers to display data about a particular topic.</p>
+<div class="section" id="id2">
+<h3>Models<a class="headerlink" href="#id2" title="Permalink to this headline">¶</a></h3>
+<ul class="simple">
+<li>Map - A collection of data layers composed in a particular order to form a map</li>
+<li>MapLayer - A model that maintains some map-specific information related to a layer, such as the z-indexing order.</li>
+</ul>
+</div>
+<div class="section" id="id3">
+<h3>Views<a class="headerlink" href="#id3" title="Permalink to this headline">¶</a></h3>
+<p>The maps app provides views for:</p>
+<ul class="simple">
+<li>Creating, viewing, browsing, editing, and deleting Maps</li>
+</ul>
+<p>These operations require the use of GeoServer to manage map rendering, as well
+as GeoExt to provide interactive editing and previewing of maps and data layers.</p>
+<p>There are also some url mappings in the <tt class="docutils literal"><span class="pre">geonode.maps.urls</span></tt> module for easy
+inclusion in GeoNode sites.</p>
+</div>
+<div class="section" id="id4">
+<h3><tt class="docutils literal"><span class="pre">settings.py</span></tt> Entries<a class="headerlink" href="#id4" title="Permalink to this headline">¶</a></h3>
+<dl class="docutils">
+<dt>OGC_SERVER</dt>
+<dd><p class="first">Default: <tt class="docutils literal"><span class="pre">{}</span></tt> (Empty dictionary)</p>
+<p>A dictionary of OGC servers and and their options.  The main
+server should be listed in the &#8216;default&#8217; key.  If there is no &#8216;default&#8217;
+key or if the <tt class="docutils literal"><span class="pre">OGC_SERVER</span></tt> setting does not exist GeoNode will raise
+an Improperly Configured exception.  Below is an example of the <tt class="docutils literal"><span class="pre">OGC_SERVER</span></tt>
+setting:</p>
+<div class="highlight-python"><div class="highlight"><pre><span class="n">OGC_SERVER</span> <span class="o">=</span> <span class="p">{</span>
+  <span class="s">&#39;default&#39;</span> <span class="p">:</span> <span class="p">{</span>
+      <span class="s">&#39;LOCATION&#39;</span> <span class="p">:</span> <span class="s">&#39;http://localhost:8080/geoserver/&#39;</span><span class="p">,</span>
+      <span class="s">&#39;USER&#39;</span> <span class="p">:</span> <span class="s">&#39;admin&#39;</span><span class="p">,</span>
+      <span class="s">&#39;PASSWORD&#39;</span> <span class="p">:</span> <span class="s">&#39;geoserver&#39;</span><span class="p">,</span>
+  <span class="p">}</span>
+<span class="p">}</span>
+</pre></div>
+</div>
+<dl class="last docutils">
+<dt>BACKEND</dt>
+<dd><p class="first">Default: <tt class="docutils literal"><span class="pre">&quot;geonode.geoserver&quot;</span></tt></p>
+<p>The OGC server backend to use.  The backend choices are:</p>
+<ul class="last simple">
+<li><tt class="docutils literal"><span class="pre">'geonode.geoserver'</span></tt></li>
+</ul>
+</dd>
+<dt>BACKEND_WRITE_ENABLED</dt>
+<dd><p class="first">Default: <tt class="docutils literal"><span class="pre">True</span></tt></p>
+<p class="last">Specifies whether the OGC server can be written to.  If False, actions that modify
+data on the OGC server will not execute.</p>
+</dd>
+<dt>LOCATION</dt>
+<dd><p class="first">Default: <tt class="docutils literal"><span class="pre">&quot;http://localhost:8080/geoserver/&quot;</span></tt></p>
+<p class="last">A base URL from which GeoNode can construct OGC service URLs.
+If using Geoserver you can determine this by
+visiting the GeoServer administration home page without the
+/web/ at the end.  For example, if your GeoServer administration app is at
+<a class="reference external" href="http://example.com/geoserver/web/">http://example.com/geoserver/web/</a>, your server&#8217;s location is <a class="reference external" href="http://example.com/geoserver">http://example.com/geoserver</a>.</p>
+</dd>
+<dt>PUBLIC_LOCATION</dt>
+<dd><p class="first">Default: <tt class="docutils literal"><span class="pre">&quot;http://localhost:8080/geoserver/&quot;</span></tt></p>
+<p class="last">The URL used to in most public requests from GeoNode.  This settings allows a user to write to one OGC server (the LOCATION setting)
+and read from a seperate server or the PUBLIC_LOCATION.</p>
+</dd>
+<dt>USER</dt>
+<dd><p class="first">Default: <tt class="docutils literal"><span class="pre">'admin'</span></tt></p>
+<p class="last">The administrative username for the OGC server as a string.</p>
+</dd>
+<dt>PASSWORD</dt>
+<dd><p class="first">Default: <tt class="docutils literal"><span class="pre">'geoserver'</span></tt></p>
+<p class="last">The administrative password for the OGC server as a string.</p>
+</dd>
+<dt>MAPFISH_PRINT_ENABLED</dt>
+<dd><p class="first">Default: <tt class="docutils literal"><span class="pre">True</span></tt></p>
+<p class="last">A boolean that represents whether the Mapfish printing extension is enabled on the server.</p>
+</dd>
+<dt>PRINT_NG_ENABLED</dt>
+<dd><p class="first">Default: <tt class="docutils literal"><span class="pre">True</span></tt></p>
+<p class="last">A boolean that represents whether printing of maps and layers is enabled.</p>
+</dd>
+<dt>GEONODE_SECURITY_ENABLED</dt>
+<dd><p class="first">Default: <tt class="docutils literal"><span class="pre">True</span></tt></p>
+<p class="last">A boolean that represents whether GeoNode&#8217;s security application is enabled.</p>
+</dd>
+<dt>GEOGIT_ENABLED</dt>
+<dd><p class="first">Default: <tt class="docutils literal"><span class="pre">False</span></tt></p>
+<p class="last">A boolean that represents whether the OGC server supports Geogig datastores.</p>
+</dd>
+<dt>WMST_ENABLED</dt>
+<dd><p class="first">Default: <tt class="docutils literal"><span class="pre">False</span></tt></p>
+<p class="last">Not implemented.</p>
+</dd>
+<dt>WPS_ENABLED</dt>
+<dd><p class="first">Default: <tt class="docutils literal"><span class="pre">False</span></tt></p>
+<p class="last">Not implemented.</p>
+</dd>
+<dt>DATASTORE</dt>
+<dd><p class="first">Default: <tt class="docutils literal"><span class="pre">''</span></tt> (Empty string)</p>
+<p>An optional string that represents the name of a vector datastore that GeoNode uploads
+are imported into.  In order to support vector datastore imports there also needs to be an
+entry for the datastore in the <tt class="docutils literal"><span class="pre">DATABASES</span></tt> dictionary with the same name.  Example:</p>
+<div class="last highlight-python"><div class="highlight"><pre><span class="n">OGC_SERVER</span> <span class="o">=</span> <span class="p">{</span>
+  <span class="s">&#39;default&#39;</span> <span class="p">:</span> <span class="p">{</span>
+     <span class="s">&#39;LOCATION&#39;</span> <span class="p">:</span> <span class="s">&#39;http://localhost:8080/geoserver/&#39;</span><span class="p">,</span>
+     <span class="s">&#39;USER&#39;</span> <span class="p">:</span> <span class="s">&#39;admin&#39;</span><span class="p">,</span>
+     <span class="s">&#39;PASSWORD&#39;</span> <span class="p">:</span> <span class="s">&#39;geoserver&#39;</span><span class="p">,</span>
+     <span class="s">&#39;DATASTORE&#39;</span><span class="p">:</span> <span class="s">&#39;geonode_imports&#39;</span>
+  <span class="p">}</span>
+<span class="p">}</span>
+
+<span class="n">DATABASES</span> <span class="o">=</span> <span class="p">{</span>
+ <span class="s">&#39;default&#39;</span><span class="p">:</span> <span class="p">{</span>
+     <span class="s">&#39;ENGINE&#39;</span><span class="p">:</span> <span class="s">&#39;django.db.backends.sqlite3&#39;</span><span class="p">,</span>
+     <span class="s">&#39;NAME&#39;</span><span class="p">:</span> <span class="s">&#39;development.db&#39;</span><span class="p">,</span>
+ <span class="p">},</span>
+ <span class="s">&#39;geonode_imports&#39;</span> <span class="p">:</span> <span class="p">{</span>
+     <span class="s">&#39;ENGINE&#39;</span><span class="p">:</span> <span class="s">&#39;django.contrib.gis.db.backends.postgis&#39;</span><span class="p">,</span>
+     <span class="s">&#39;NAME&#39;</span><span class="p">:</span> <span class="s">&#39;geonode_imports&#39;</span><span class="p">,</span>
+     <span class="s">&#39;USER&#39;</span> <span class="p">:</span> <span class="s">&#39;geonode_user&#39;</span><span class="p">,</span>
+     <span class="s">&#39;PASSWORD&#39;</span> <span class="p">:</span> <span class="s">&#39;a_password&#39;</span><span class="p">,</span>
+     <span class="s">&#39;HOST&#39;</span> <span class="p">:</span> <span class="s">&#39;localhost&#39;</span><span class="p">,</span>
+     <span class="s">&#39;PORT&#39;</span> <span class="p">:</span> <span class="s">&#39;5432&#39;</span><span class="p">,</span>
+  <span class="p">}</span>
+ <span class="p">}</span>
+</pre></div>
+</div>
+</dd>
+</dl>
+</dd>
+<dt>GEOSERVER_CREDENTIALS</dt>
+<dd>Removed in GeoNode 2.0, this value is now specified in the <tt class="docutils literal"><span class="pre">OGC_SERVER</span></tt> settings.</dd>
+<dt>GEOSERVER_BASE_URL</dt>
+<dd>Removed in GeoNode 2.0, this value is now specified in the <tt class="docutils literal"><span class="pre">OGC_SERVER</span></tt> settings.</dd>
+<dt>CATALOGUE</dt>
+<dd><p class="first">A dict with the following keys:</p>
+<ul class="simple">
+<li>ENGINE: The CSW backend (default is <tt class="docutils literal"><span class="pre">geonode.catalogue.backends.pycsw_local</span></tt>)</li>
+<li>URL: The FULLY QUALIFIED base url to the CSW instance for this GeoNode</li>
+<li>USERNAME: login credentials (if required)</li>
+<li>PASSWORD: login credentials (if required)</li>
+</ul>
+<p class="last">pycsw is the default CSW enabled in GeoNode.  pycsw configuration directives
+are managed in the PYCSW entry.</p>
+</dd>
+<dt>PYCSW</dt>
+<dd>A dict with pycsw&#8217;s configuration.  Of note are the sections
+<tt class="docutils literal"><span class="pre">metadata:main</span></tt> to set CSW server metadata and <tt class="docutils literal"><span class="pre">metadata:inspire</span></tt>
+to set INSPIRE options.  Setting <tt class="docutils literal"><span class="pre">metadata:inspire['enabled']</span></tt> to <tt class="docutils literal"><span class="pre">true</span></tt>
+will enable INSPIRE support.  Server level configurations can be overridden
+in the <tt class="docutils literal"><span class="pre">server</span></tt> section.  See <a class="reference external" href="http://pycsw.org/docs/configuration.html">http://pycsw.org/docs/configuration.html</a>
+for full pycsw configuration details.</dd>
+<dt>SITEURL</dt>
+<dd><p class="first">Default: <tt class="docutils literal"><span class="pre">'http://localhost:8000/'</span></tt></p>
+<p class="last">A base URL for use in creating absolute links to Django views.</p>
+</dd>
+<dt>DEFAULT_MAP_BASE_LAYER</dt>
+<dd>The name of the background layer to include in newly created maps.</dd>
+<dt>DEFAULT_MAP_CENTER</dt>
+<dd><p class="first">Default: <tt class="docutils literal"><span class="pre">(0,</span> <span class="pre">0)</span></tt></p>
+<p class="last">A 2-tuple with the latitude/longitude coordinates of the center-point to use
+in newly created maps.</p>
+</dd>
+<dt>DEFAULT_MAP_ZOOM</dt>
+<dd><p class="first">Default: <tt class="docutils literal"><span class="pre">0</span></tt></p>
+<p class="last">The zoom-level to use in newly created maps.  This works like the OpenLayers
+zoom level setting; 0 is at the world extent and each additional level cuts
+the viewport in half in each direction.</p>
+</dd>
+</dl>
+</div>
+</div>
+<div class="section" id="geonode-proxy-assist-javascript-applications-in-accessing-remote-servers">
+<h2><tt class="docutils literal"><span class="pre">geonode.proxy</span></tt> - Assist JavaScript applications in accessing remote servers<a class="headerlink" href="#geonode-proxy-assist-javascript-applications-in-accessing-remote-servers" title="Permalink to this headline">¶</a></h2>
+<p>This Django app provides some HTTP proxies for accessing data from remote
+servers, to overcome restrictions imposed by the same-origin policy used by
+browsers.  This helps the GeoExt applications in a GeoNode site to access various XML documents from OGC-compliant data services.</p>
+<div class="section" id="id5">
+<h3>Views<a class="headerlink" href="#id5" title="Permalink to this headline">¶</a></h3>
+<dl class="docutils">
+<dt>geonode.proxy.views.proxy</dt>
+<dd>This view forwards requests without authentication to a URL provided in the
+request, similar to the proxy.cgi script provided by the OpenLayers project.</dd>
+<dt>geonode.proxy.views.geoserver</dt>
+<dd>This view proxies requests to GeoServer.  Instead of a URL-encoded URL
+parameter, the path component of the request is expected to be a path
+component for GeoServer.  Requests to this URL require valid authentication
+against the Django site, and will use the default <tt class="docutils literal"><span class="pre">OGC_SERVER</span></tt> <tt class="docutils literal"><span class="pre">USER</span></tt>,
+<tt class="docutils literal"><span class="pre">PASSWORD</span></tt> and <tt class="docutils literal"><span class="pre">LOCATION</span></tt> settings as defined in the maps application.</dd>
+</dl>
+</div>
+</div>
+<div class="section" id="geonode-search-provides-the-geonode-search-functionality">
+<h2><tt class="docutils literal"><span class="pre">geonode.search</span></tt> - Provides the GeoNode search functionality.<a class="headerlink" href="#geonode-search-provides-the-geonode-search-functionality" title="Permalink to this headline">¶</a></h2>
+<p>This Django app provides a fast search functionality to GeoNode.</p>
+<div class="section" id="id6">
+<h3>Views<a class="headerlink" href="#id6" title="Permalink to this headline">¶</a></h3>
+<ul class="simple">
+<li>search_api- Builds and executes a search query based on url parameters and returns matching results in requested format.</li>
+</ul>
+</div>
+</div>
+<div class="section" id="geonode-security-geonode-granular-auth-backend">
+<h2><tt class="docutils literal"><span class="pre">geonode.security</span></tt> - GeoNode granular Auth Backend<a class="headerlink" href="#geonode-security-geonode-granular-auth-backend" title="Permalink to this headline">¶</a></h2>
+<p>This app provides an authentication backend for use in assigning permissions to individual objects (maps and layers).</p>
+<div class="section" id="id7">
+<h3><tt class="docutils literal"><span class="pre">settings.py</span></tt> Entries<a class="headerlink" href="#id7" title="Permalink to this headline">¶</a></h3>
+<dl class="docutils">
+<dt>LOCKDOWN_GEONODE</dt>
+<dd><p class="first">Default: <tt class="docutils literal"><span class="pre">False</span></tt></p>
+<p class="last">By default, the GeoNode application allows visitors to view most pages without
+being authenticated.  Set <tt class="docutils literal"><span class="pre">LOCKDOWN_GEONODE</span> <span class="pre">=</span> <span class="pre">True</span></tt> to require a user to
+be authenticated before viewing the application.</p>
+</dd>
+<dt>AUTH_EXEMPT_URLS</dt>
+<dd><p class="first">Default: <tt class="docutils literal"><span class="pre">()</span></tt> (Empty tuple)</p>
+<p class="last">A tuple of url patterns that the user can visit without being authenticated.
+This setting has no effect if <tt class="docutils literal"><span class="pre">LOCKDOWN_GEONODE</span></tt> is not True.  For example,
+<tt class="docutils literal"><span class="pre">AUTH_EXEMPT_URLS</span> <span class="pre">=</span> <span class="pre">('/maps',)</span></tt> will allow unauthenticated users to
+browse maps.</p>
+</dd>
+</dl>
+</div>
+<div class="section" id="id8">
+<h3>Template Tags<a class="headerlink" href="#id8" title="Permalink to this headline">¶</a></h3>
+<dl class="docutils">
+<dt>geonode_media &lt;media_name&gt;</dt>
+<dd><p class="first">Accesses entries in MEDIA_LOCATIONS without requiring the view to explicitly
+add it to the template context.  Example usage:</p>
+<div class="last highlight-python"><div class="highlight"><pre>{% include geonode_media %}
+{% geonode_media &quot;ext_base&quot; %}
+</pre></div>
+</div>
+</dd>
+<dt>has_obj_perm &lt;user&gt; &lt;obj&gt; &lt;permission&gt;</dt>
+<dd><p class="first">Checks whether the user has the specified permission on an object.</p>
+<p class="last"><tt class="docutils literal"><span class="pre">{%</span> <span class="pre">has_obj_perm</span> <span class="pre">user</span> <span class="pre">obj</span> <span class="pre">&quot;app.view_thing&quot;</span> <span class="pre">as</span> <span class="pre">can_view_thing</span> <span class="pre">%}</span></tt></p>
+</dd>
+</dl>
+</div>
+</div>
+<div class="section" id="django-s-error-templates">
+<h2>Django&#8217;s error templates<a class="headerlink" href="#django-s-error-templates" title="Permalink to this headline">¶</a></h2>
+<p>GeoNode customizes some of Django&#8217;s default error templates.</p>
+<div class="section" id="html">
+<h3>500.html<a class="headerlink" href="#html" title="Permalink to this headline">¶</a></h3>
+<p>If no custom handler for 500 errors is set up in the URLconf module, django will call django.views.defaults.server_error which expects a 500.html file in the root of the templates directory. In GeoNode, we have put a template that does not inherit from anything as 500.html and because most of Django&#8217;s machinery is down when an INTERNAL ERROR (500 code) is encountered the use of template tags should be avoided.</p>
+</div>
+</div>
+</div>
+
+
+          </div>
+        </div>
+      </div>
+      <div class="clearer"></div>
+    </div>
+    <div class="related">
+      <h3>Navigation</h3>
+      <ul>
+            <li class="right" style="margin-right: 10px">
+              <a href="../../genindex.html" title="General Index"
+                 accesskey="I">index</a></li>
+            <li class="right" >
+              <a href="javascript.html" title="JavaScript in GeoNode"
+                 accesskey="N">next</a> |</li>
+            <li class="right" >
+              <a href="geosites.html" title="GeoSites: GeoNode Multi-Tenancy"
+                 accesskey="P">previous</a> |</li>
+        <li><a href="../../index.html">doc</a> &raquo;</li>
+          <li><a href="../index.html" accesskey="U">Reference documentation</a> &raquo;</li>
+        <li><a href="#">GeoNode Django Apps</a></li>
+      </ul>
+    </div>
+
+    <div class="footer">
+        &copy; Copyright 2014 GeoSolutions.
+      Last updated on Aug 03, 2015.
+      Created using <a href="http://sphinx-doc.org/">Sphinx</a> 1.2.2.
+    </div>
+  </body>
+</html>

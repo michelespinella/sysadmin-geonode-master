@@ -1,0 +1,349 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
+  "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+
+
+<html xmlns="http://www.w3.org/1999/xhtml">
+  <head>
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+    
+    <title>Security and Permissions &mdash; DRDSI CKAN doc</title>
+    
+    <link rel="stylesheet" href="../_static/geosolutions.css" type="text/css" />
+    <link rel="stylesheet" href="../_static/pygments.css" type="text/css" />
+    
+    <script type="text/javascript">
+      var DOCUMENTATION_OPTIONS = {
+        URL_ROOT:    '../',
+        VERSION:     '20140422',
+        COLLAPSE_INDEX: false,
+        FILE_SUFFIX: '.html',
+        HAS_SOURCE:  true
+      };
+    </script>
+    <script type="text/javascript" src="../_static/jquery.js"></script>
+    <script type="text/javascript" src="../_static/underscore.js"></script>
+    <script type="text/javascript" src="../_static/doctools.js"></script>
+    <link rel="shortcut icon" href="../_static/favicon.ico"/>
+    <link rel="top" title="DRDSI CKAN doc" href="../index.html" />
+    <link rel="up" title="Reference documentation" href="index.html" />
+    <link rel="next" title="GeoNode ah-hoc API" href="api.html" />
+    <link rel="prev" title="Components" href="components.html" />
+    
+
+  </head>
+  <body>
+    <div class="header">
+        <div class="wrap">
+			
+            <div class="logo">
+			<a href="http://geo-solutions.it/"><img src="../_static/img/geosolutions.png" alt="GeoSolutions" /></a>
+			<div class="social-container"> 
+				<ul id="social">
+					<li><a href="https://plus.google.com/u/0/100131944378031878024/posts" id="gplus">Google+</a></li>
+					<li><a href="http://twitter.com/geosolutions_it/" id="twitter">Twitter</a></li>
+				</ul>
+			</div>
+			</div>
+					
+            <h2 class="docstitle"><a href="../index.html">DRDSI CKAN doc</a></h2>
+			
+        </div>
+    </div>
+
+
+      <div class="sphinxsidebar">
+        <div class="sphinxsidebarwrapper">
+  <h3><a href="../index.html">Table Of Contents</a></h3>
+  <ul>
+<li><a class="reference internal" href="#">Security and Permissions</a><ul>
+<li><a class="reference internal" href="#permissions-and-geonode-objects">Permissions and GeoNode objects</a><ul>
+<li><a class="reference internal" href="#users">Users</a></li>
+<li><a class="reference internal" href="#groups">Groups</a></li>
+<li><a class="reference internal" href="#layers">Layers</a></li>
+<li><a class="reference internal" href="#maps">Maps</a></li>
+<li><a class="reference internal" href="#documents">Documents</a></li>
+<li><a class="reference internal" href="#require-authentication-to-access-geonode">Require authentication to access GeoNode</a></li>
+</ul>
+</li>
+<li><a class="reference internal" href="#publishing-and-unpublishing-objects">Publishing and unpublishing objects</a></li>
+</ul>
+</li>
+</ul>
+
+  <h4>Previous topic</h4>
+  <p class="topless"><a href="components.html"
+                        title="previous chapter">Components</a></p>
+  <h4>Next topic</h4>
+  <p class="topless"><a href="api.html"
+                        title="next chapter">GeoNode ah-hoc API</a></p>
+  <h3>This Page</h3>
+  <ul class="this-page-menu">
+    <li><a href="../_sources/architecture/security.txt"
+           rel="nofollow">Show Source</a></li>
+  </ul>
+        </div>
+      </div>
+
+
+    <div class="document">
+      <div class="documentwrapper">
+        <div class="bodywrapper">
+          <div class="body">
+            
+  <div class="section" id="security-and-permissions">
+<span id="security"></span><h1>Security and Permissions<a class="headerlink" href="#security-and-permissions" title="Permalink to this headline">¶</a></h1>
+<p>GeoNode has the ability to restrict the access on your layers, maps, and
+documents to other users or group of users.</p>
+<p>This section should help you to understand which restrictions are possible and
+what to take care of while using them.</p>
+<p>Generally permissions can be set on all your uploaded data. Here´s an overview:</p>
+<ol class="arabic simple">
+<li>Users<ul>
+<li>Superuser permissions</li>
+<li>Django admin interface permissions</li>
+</ul>
+</li>
+<li>Groups<ul>
+<li>Public</li>
+<li>Public (invite only)</li>
+<li>Private</li>
+</ul>
+</li>
+<li>Layers<ul>
+<li>View a layer</li>
+<li>Download a layer</li>
+<li>Change metadata for a layer</li>
+<li>Edit layer&#8217;s features</li>
+<li>Edit styles for a layer</li>
+<li>Manage a layer (update, delete, change permissions, publish/unpublish it)</li>
+</ul>
+</li>
+<li>Maps<ul>
+<li>View a map</li>
+<li>Download a map</li>
+<li>Change metadata for a map</li>
+<li>Manage a map (update, delete, change permissions, publish/unpublish it)</li>
+</ul>
+</li>
+<li>Documents<ul>
+<li>View a document</li>
+<li>Download a document</li>
+<li>Change metadata for a document</li>
+<li>Manage a document (update, delete, change permissions, publish/unpublish it)</li>
+</ul>
+</li>
+</ol>
+<p>To understand how this permissions can be set, you first have to know about the different kinds of users.</p>
+<div class="section" id="permissions-and-geonode-objects">
+<h2>Permissions and GeoNode objects<a class="headerlink" href="#permissions-and-geonode-objects" title="Permalink to this headline">¶</a></h2>
+<div class="section" id="users">
+<h3>Users<a class="headerlink" href="#users" title="Permalink to this headline">¶</a></h3>
+<p>GeoNode has two types of users:</p>
+<ul class="simple">
+<li>Unregistered users (anonymous)</li>
+<li>Registered users</li>
+</ul>
+<p>An unregistered user is someone who is just visiting the site, but doesn&#8217;t have any data uploaded yet. A registered user has
+already done that. But there are even more kinds of registered users! A registered user can have one or more of those three status:</p>
+<ul class="simple">
+<li>Superuser</li>
+<li>Staff</li>
+<li>Active</li>
+</ul>
+<p>A superuser is usually generated directly after the installation of GeoNode via the terminal. When creating a <em>superuser</em> through
+the terminal it always has the status <em>active</em> and the status <em>staff</em> as well. It is also important to know that a superuser is a user that has all permissions without explicitly assigning them! That means that he is able to
+upload and edit layers, create maps etc. and can not be restricted from that! So the superuser is basically the administrator, who knows and has access on everything.</p>
+<p>The status <em>staff</em> only implies that a user with this status is able to attend the <em>Django Admin Interface</em>. <em>Active</em> has no special meaning, it only says that there is a user and it is available. Instead of deleting this user, you could just unset the status <em>active</em>, your user will still be remaining, but it won´t show up.</p>
+<p>There are several options to create a user:</p>
+<ul class="simple">
+<li>From the terminal: Here you can only create a <em>superuser</em></li>
+<li>From the GeoNode interface (when GeoNode registration are open): A <em>normal</em> user will be created by signing up to GeoNode. It only has the status <em>active</em> so far!</li>
+<li>From the GeoNode interface (when GeoNode registration are closed): A superuser will be able to invite a user</li>
+<li>From the Django administrative interface: a new user can be created as well as the status of an already existing user can be changed, e.g make a generic user a superuser.</li>
+</ul>
+</div>
+<div class="section" id="groups">
+<h3>Groups<a class="headerlink" href="#groups" title="Permalink to this headline">¶</a></h3>
+<p>In GeoNode you can assign permissions to groups, all the users that belong to the group will inherit its permissions.</p>
+<p>If you are an administrator you can create a group in the dedicated tab and invite or assign users to it.
+The group will be available in the permissions widget in geonode and you will be able to assign object permissions to it.</p>
+</div>
+<div class="section" id="layers">
+<h3>Layers<a class="headerlink" href="#layers" title="Permalink to this headline">¶</a></h3>
+<p>As mentioned above, a superuser or the layer owner or a user with management
+permissions on the layer should be able to restrict
+other users from the layer itself.</p>
+<p>Generally there are the following types of permissions:</p>
+<div class="figure">
+<img alt="../_images/permissions.png" src="../_images/permissions.png" />
+</div>
+<p>These are permissions that is possible to assign to a GeoNode layer:</p>
+<ul class="simple">
+<li>Who can view the layer</li>
+<li>Who can download the layer</li>
+<li>Who can change the metadata of the layer</li>
+<li>Who can edit data of the layer</li>
+<li>Who can edit styles of the layer</li>
+<li>Who can manage the layer (update, delete, change permissions, publish/unpublish it)</li>
+</ul>
+<p>Each of these permissions can be assigned to:</p>
+<ul class="simple">
+<li>Anyone (only for who can view and download)</li>
+<li>One or more users</li>
+<li>One or more groups</li>
+</ul>
+<p>A user with all of these permissions in the layer detail page will have a button
+to download the layer, a button to download its metadata, a button to change the
+layer permissions and an edit button that will display links to:</p>
+<ul class="simple">
+<li>Edit metadata</li>
+<li>Edit styles</li>
+<li>Manage styles</li>
+<li>Replace the layer</li>
+<li>Remove the layer</li>
+</ul>
+<p>This can also be seen here:</p>
+<div class="figure">
+<img alt="../_images/permissions2.png" src="../_images/permissions2.png" />
+</div>
+<p>If the layer is vectorial the user will be able also to edit the layer&#8217;s
+features in a GeoNode map (the &#8220;Edit&#8221; tool should be enabled).</p>
+<p>Now take a closer look on to the section <em>Edit Metadata</em>. All the following things can be edited in the metadata section:</p>
+<ul>
+<li><p class="first">Owner</p>
+</li>
+<li><p class="first">Title</p>
+</li>
+<li><p class="first">Date</p>
+</li>
+<li><p class="first">Data type</p>
+</li>
+<li><p class="first">Edition</p>
+</li>
+<li><p class="first">Abstract</p>
+</li>
+<li><p class="first">Purpose</p>
+</li>
+<li><p class="first">Maintenance frequency</p>
+</li>
+<li><p class="first">Keywords region</p>
+</li>
+<li><p class="first">Restrictions</p>
+</li>
+<li><p class="first">Restrictions other</p>
+</li>
+<li><p class="first">Language</p>
+</li>
+<li><p class="first">Category</p>
+</li>
+<li><p class="first">Spatial representation type</p>
+</li>
+<li><p class="first">Temporal extent start</p>
+</li>
+<li><p class="first">Temporal extent end</p>
+</li>
+<li><p class="first">Supplemental information</p>
+</li>
+<li><p class="first">Distribution URL</p>
+</li>
+<li><p class="first">Distribution description</p>
+</li>
+<li><p class="first">Data quality statement</p>
+</li>
+<li><p class="first">Keywords</p>
+</li>
+<li><p class="first">Point of contact</p>
+</li>
+<li><p class="first">Metadata author</p>
+</li>
+<li><p class="first">Attributes (those can though not be changed!)</p>
+<div class="admonition-todo admonition" id="index-0">
+<p class="first admonition-title">Todo</p>
+<p class="last">this should go to a metadata session</p>
+</div>
+</li>
+</ul>
+</div>
+<div class="section" id="maps">
+<h3>Maps<a class="headerlink" href="#maps" title="Permalink to this headline">¶</a></h3>
+<p>Generally all the same applies to maps, but with fewer options:</p>
+<ul class="simple">
+<li>Who can view the map</li>
+<li>Who can download the map</li>
+<li>Who can change the metadata of the map</li>
+<li>Who can manage (delete, change permissions, publish/unpublish it, set map thumbnail)</li>
+</ul>
+<p>The section <em>Edit metadata</em> is almost the same as for layers, with two more
+options:</p>
+<ul class="simple">
+<li>Metadata XML</li>
+<li>Thumbnail</li>
+</ul>
+<p>In <em>Set map thumbnail</em> the thumbnail of the map can be set.</p>
+</div>
+<div class="section" id="documents">
+<h3>Documents<a class="headerlink" href="#documents" title="Permalink to this headline">¶</a></h3>
+<p>The same permissions that can be used on layers can be used on the documents, with the exception of the edit data and edit styles permissions.</p>
+</div>
+<div class="section" id="require-authentication-to-access-geonode">
+<h3>Require authentication to access GeoNode<a class="headerlink" href="#require-authentication-to-access-geonode" title="Permalink to this headline">¶</a></h3>
+<p>By default, unregistered users cannot view maps, layers, and documents on your site without being authenticated.  GeoNode comes
+a security option that requires users to authenticate before accessing any page.  To enable this option, set the <tt class="docutils literal"><span class="pre">LOCKDOWN_GEONODE</span></tt>
+setting to true in your <tt class="docutils literal"><span class="pre">settings.py</span></tt> file.  You can fine-tune which url routes are white-listed (accessible by unregistered
+users) by listing the routes in the <tt class="docutils literal"><span class="pre">AUTH_EXEMPT_URLS</span></tt> tuple.  See the <a class="reference internal" href="developers/django-apps.html#djangoapps"><em>GeoNode Django Apps</em></a> documentation for more information.</p>
+</div>
+</div>
+<div class="section" id="publishing-and-unpublishing-objects">
+<h2>Publishing and unpublishing objects<a class="headerlink" href="#publishing-and-unpublishing-objects" title="Permalink to this headline">¶</a></h2>
+<p>By default GeoNode does not implement any kind of mechanism to publish/unpublish resources such as layer, maps and documents.</p>
+<p>Setting the RESOURCE_PUBLISHING to True such a workflow is used, and by default
+new uploaded resources are unpublished.</p>
+<p>It is possible for any GeoNode staff member that has permissions on the
+base/ResourceBase model to decide to publish/unpublish a layer, map or document.</p>
+<p>The staff member can go to the resource base Django admin page, and publish or
+unpublish the resource by checking or unchecking the is_published field:</p>
+<div class="figure">
+<img alt="../_images/unpublish_content.png" src="../_images/unpublish_content.png" />
+</div>
+<p>When the resource is unpublished, it will be not available to any user,
+including administrators, in the GeoNode site. If the unpublished resource is
+a layer it will be considered in the GetCapabilities generated by GeoServer.</p>
+<p>The unpublished resource will not be reachable by anyone using GeoNode search features.
+The only way to access to it is by the Django admin site, from where it will be
+eventually possible to publish again the resource by a staff member, or from
+the layer details page, accessible by any user with the publish_resourcebase
+permission on that layer.</p>
+</div>
+</div>
+
+
+          </div>
+        </div>
+      </div>
+      <div class="clearer"></div>
+    </div>
+    <div class="related">
+      <h3>Navigation</h3>
+      <ul>
+            <li class="right" style="margin-right: 10px">
+              <a href="../genindex.html" title="General Index"
+                 accesskey="I">index</a></li>
+            <li class="right" >
+              <a href="api.html" title="GeoNode ah-hoc API"
+                 accesskey="N">next</a> |</li>
+            <li class="right" >
+              <a href="components.html" title="Components"
+                 accesskey="P">previous</a> |</li>
+        <li><a href="../index.html">doc</a> &raquo;</li>
+          <li><a href="index.html" accesskey="U">Reference documentation</a> &raquo;</li>
+        <li><a href="#">Security and Permissions</a></li>
+      </ul>
+    </div>
+
+    <div class="footer">
+        &copy; Copyright 2014 GeoSolutions.
+      Last updated on Aug 03, 2015.
+      Created using <a href="http://sphinx-doc.org/">Sphinx</a> 1.2.2.
+    </div>
+  </body>
+</html>

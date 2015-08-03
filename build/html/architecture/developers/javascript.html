@@ -1,0 +1,153 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
+  "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+
+
+<html xmlns="http://www.w3.org/1999/xhtml">
+  <head>
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+    
+    <title>JavaScript in GeoNode &mdash; DRDSI CKAN doc</title>
+    
+    <link rel="stylesheet" href="../../_static/geosolutions.css" type="text/css" />
+    <link rel="stylesheet" href="../../_static/pygments.css" type="text/css" />
+    
+    <script type="text/javascript">
+      var DOCUMENTATION_OPTIONS = {
+        URL_ROOT:    '../../',
+        VERSION:     '20140422',
+        COLLAPSE_INDEX: false,
+        FILE_SUFFIX: '.html',
+        HAS_SOURCE:  true
+      };
+    </script>
+    <script type="text/javascript" src="../../_static/jquery.js"></script>
+    <script type="text/javascript" src="../../_static/underscore.js"></script>
+    <script type="text/javascript" src="../../_static/doctools.js"></script>
+    <link rel="shortcut icon" href="../../_static/favicon.ico"/>
+    <link rel="top" title="DRDSI CKAN doc" href="../../index.html" />
+    <link rel="up" title="Reference documentation" href="../index.html" />
+    <link rel="next" title="Settings" href="settings.html" />
+    <link rel="prev" title="GeoNode Django Apps" href="django-apps.html" />
+    
+
+  </head>
+  <body>
+    <div class="header">
+        <div class="wrap">
+			
+            <div class="logo">
+			<a href="http://geo-solutions.it/"><img src="../../_static/img/geosolutions.png" alt="GeoSolutions" /></a>
+			<div class="social-container"> 
+				<ul id="social">
+					<li><a href="https://plus.google.com/u/0/100131944378031878024/posts" id="gplus">Google+</a></li>
+					<li><a href="http://twitter.com/geosolutions_it/" id="twitter">Twitter</a></li>
+				</ul>
+			</div>
+			</div>
+					
+            <h2 class="docstitle"><a href="../../index.html">DRDSI CKAN doc</a></h2>
+			
+        </div>
+    </div>
+
+
+      <div class="sphinxsidebar">
+        <div class="sphinxsidebarwrapper">
+  <h4>Previous topic</h4>
+  <p class="topless"><a href="django-apps.html"
+                        title="previous chapter">GeoNode Django Apps</a></p>
+  <h4>Next topic</h4>
+  <p class="topless"><a href="settings.html"
+                        title="next chapter">Settings</a></p>
+  <h3>This Page</h3>
+  <ul class="this-page-menu">
+    <li><a href="../../_sources/architecture/developers/javascript.txt"
+           rel="nofollow">Show Source</a></li>
+  </ul>
+        </div>
+      </div>
+
+
+    <div class="document">
+      <div class="documentwrapper">
+        <div class="bodywrapper">
+          <div class="body">
+            
+  <div class="section" id="javascript-in-geonode">
+<span id="javascript"></span><h1>JavaScript in GeoNode<a class="headerlink" href="#javascript-in-geonode" title="Permalink to this headline">¶</a></h1>
+<p>GeoNode provides a number of facilities for interactivity in the web browser built on top of several high-quality JavaScript frameworks:</p>
+<ul class="simple">
+<li><a class="reference external" href="http://getbootstrap.com/">Bootstrap</a> for GeoNode&#8217;s front-end user interface and common user interaction.</li>
+<li><a class="reference external" href="http://bower.io/">Bower</a> for GeoNode&#8217;s front-end package management.</li>
+<li><a class="reference external" href="http://extjs.com/">ExtJS</a> for component-based UI construction and data access</li>
+<li><a class="reference external" href="http://openlayers.org/">OpenLayers</a> for interactive mapping and other geospatial operations</li>
+<li><a class="reference external" href="http://geoext.org/">GeoExt</a> for integrating ExtJS with OpenLayers</li>
+<li><a class="reference external" href="http://gruntjs.com/">Grunt</a> for front-end task automation.</li>
+<li><a class="reference external" href="http://projects.opengeo.org/gxp">GXP</a> for providing some higher-level application building facilities on top of GeoExt, as well
+as improving integration with GeoServer.</li>
+<li><a class="reference external" href="http://jquery.com">jQuery</a> to abstract javascript manipulation, event handling, animation and Ajax.</li>
+</ul>
+<p>GeoNode uses application-specific modules to handle pages and services that are unique to GeoNode.  This framework includes:</p>
+<ul class="simple">
+<li>A <a class="reference external" href="https://github.com/GeoNode/geonode/blob/master/geonode/static/geonode/js/extjs/GeoNode-mixin.js">GeoNode mixin</a>  class
+that provides GeoExplorer with the methods needed to properly function in GeoNode.  The class
+is responsible for checking permissions, retrieving and submitting the <a class="reference external" href="https://docs.djangoproject.com/en/dev/ref/contrib/csrf/">CSRF token</a>,
+and user authentication.</li>
+<li>A <a class="reference external" href="https://github.com/GeoNode/geonode/tree/master/geonode/static/geonode/js/search">search module</a> responsible for the GeoNode&#8217;s site-wide search functionality.</li>
+<li>An <a class="reference external" href="https://github.com/GeoNode/geonode/tree/master/geonode/static/geonode/js/upload">upload and status module</a> to support file uploads.</li>
+<li><a class="reference external" href="https://github.com/GeoNode/geonode/tree/master/geonode/static/geonode/js/templates">Template files</a> for generating commonly used html sections.</li>
+<li>A <a class="reference external" href="https://github.com/GeoNode/geonode/tree/master/geonode/static/geonode/js/tests">front-end testing module</a> to test GeoNode javascript.</li>
+</ul>
+<p>The following concepts are particularly important for developing on top of the
+GeoNode&#8217;s JavaScript framework.</p>
+<ul class="simple">
+<li>Components - Ext components handle most interactive functionality in
+&#8220;regular&#8221; web pages.  For example, the scrollable/sortable/filterable table
+on the default Search page is a Grid component.  While GeoNode does use some
+custom components, familiarity with the idea of Components used by ExtJS is
+applicable in GeoNode development.</li>
+<li>Viewers - Viewers display interactive maps in web pages, optionally decorated
+with Ext controls for toolbars, layer selection, etc.  Viewers in GeoNode use
+the GeoExplorer base class, which builds on top of GXP&#8217;s Viewer to provide
+some common functionality such as respecting site-wide settings for
+background layers. Viewers can be used as components embedded in pages, or
+they can be full-page JavaScript applications.</li>
+<li>Controls - Controls are tools for use in OpenLayers maps (such as a freehand
+control for drawing new geometries onto a map, or an identify control for
+getting information about individual features on a map.)  GeoExt provides
+tools for using these controls as ExtJS &#8220;Actions&#8221; - operations that can be
+invoked as buttons or menu options or associated with other events.</li>
+</ul>
+</div>
+
+
+          </div>
+        </div>
+      </div>
+      <div class="clearer"></div>
+    </div>
+    <div class="related">
+      <h3>Navigation</h3>
+      <ul>
+            <li class="right" style="margin-right: 10px">
+              <a href="../../genindex.html" title="General Index"
+                 accesskey="I">index</a></li>
+            <li class="right" >
+              <a href="settings.html" title="Settings"
+                 accesskey="N">next</a> |</li>
+            <li class="right" >
+              <a href="django-apps.html" title="GeoNode Django Apps"
+                 accesskey="P">previous</a> |</li>
+        <li><a href="../../index.html">doc</a> &raquo;</li>
+          <li><a href="../index.html" accesskey="U">Reference documentation</a> &raquo;</li>
+        <li><a href="#">JavaScript in GeoNode</a></li>
+      </ul>
+    </div>
+
+    <div class="footer">
+        &copy; Copyright 2014 GeoSolutions.
+      Last updated on Aug 03, 2015.
+      Created using <a href="http://sphinx-doc.org/">Sphinx</a> 1.2.2.
+    </div>
+  </body>
+</html>
